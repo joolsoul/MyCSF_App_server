@@ -5,6 +5,8 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseU
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
+from phonenumber_field.modelfields import PhoneNumberField
+
 
 from api.validators import CustomUnicodeUsernameValidator
 
@@ -87,12 +89,11 @@ class User(AbstractBaseUser, PermissionsMixin):
             'unique': _("A user with that email already exists."),
         },
     )
-    phone = models.CharField(
+    phone = PhoneNumberField(
         _('phone number'),
         unique=True,
-        error_messages={
-            'unique': _("A user with that phone number already exists."),
-        },
+        null=True,
+        blank=True
     )
     is_staff = models.BooleanField(
         _('staff status'),
@@ -162,7 +163,7 @@ class Map(models.Model):
         ('ex', "extension building")
     ]
     building = models.CharField(_('building'), max_length=2, choices=BUILDINGS, blank=True)
-    building_level = models.IntegerField(_('level of building'), max_length=1, choices=BUILDINGS)
+    building_level = models.IntegerField(_('level of building'), choices=BUILDINGS)
     map_file = models.FilePathField()   # TODO: !
 
 
