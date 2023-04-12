@@ -1,0 +1,7 @@
+asgiref==3.6.0
+Django==4.2
+django-phonenumber-field==7.0.2
+django-phonenumbers==1.0.1
+phonenumbers==8.13.9
+sqlparse==0.4.3
+tzdata==2023.3
