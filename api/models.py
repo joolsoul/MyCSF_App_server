@@ -109,6 +109,11 @@ class User(AbstractBaseUser, PermissionsMixin):
             'Unselect this instead of deleting accounts.'
         )
     )
+    is_verified = models.BooleanField(
+        _('is verified'),
+        default=False,
+        # help_text=_() TODO: заполнить
+    )
 
     objects = UserManager()
 
