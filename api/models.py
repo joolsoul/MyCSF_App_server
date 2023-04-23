@@ -149,8 +149,8 @@ class Professor(models.Model):
 
 
 class CourseGroup(models.Model):
-    course_number = models.IntegerField(_('number of course'), blank=False)
-    group_number = models.CharField(_('number of group'), max_length=10, blank=False)
+    course_number = models.IntegerField(_('Номер курса'), blank=False)
+    group_number = models.CharField(_('Номер группы'), max_length=10, blank=False) # TODO: валидация двух полей
     EDUCATION_LEVELS = [
         ('b', "bachelor"),
         ('m', "magistracy"),
@@ -158,7 +158,7 @@ class CourseGroup(models.Model):
         ('s', "specialty")
     ]
     higher_education_level = models.CharField(
-        _('level of higher education'),
+        _('Ступень высшего образования'),
         max_length=1, choices=EDUCATION_LEVELS, blank=True)
 
 
