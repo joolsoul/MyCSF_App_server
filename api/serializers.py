@@ -57,6 +57,7 @@ class StudentCreateSerializer(UserCreateSerializer):
                                    email=validated_data['email'],
                                    phone=validated_data['phone'])
         user.set_password(validated_data['password'])
+        user.save()
         # TODO: validate fields
         year_of_enrollment = validated_data['year_of_enrollment']
         record_book_number = validated_data['record_book_number']

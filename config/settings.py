@@ -1,4 +1,6 @@
 import os
+from datetime import timedelta
+
 from dotenv import load_dotenv
 
 from pathlib import Path
@@ -140,4 +142,10 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
     ],
     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema'
+}
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=366),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=10000),
+    'AUTH_HEADER_TYPES': ('Bearer',),
 }

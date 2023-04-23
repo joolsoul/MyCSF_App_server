@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from rest_framework import routers
 
 from api.views import StudentApiList, StudentViewSet
@@ -14,6 +14,7 @@ urlpatterns = [
     path('professor/', ProfessorApiList.as_view()),
     path('courseGroup/', CourseGroupApiList.as_view()),
     # path('auth/users/student', StudentCreateView.as_view())
+    path('auth/', include('djoser.urls.jwt')),
 ]
 
 urlpatterns += router.urls

@@ -31,7 +31,6 @@ class StudentViewSet(UserViewSet):
     # serializer_class = StudentCreateSerializer
 
     def get_serializer_class(self):
-        print(settings.SERIALIZERS.user_create)
         if self.action == "create":
             return StudentCreateSerializer
         elif self.action == "destroy" or (
