@@ -110,7 +110,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         )
     )
     is_verified = models.BooleanField(
-        _('is verified'),
+        _('Подтвержденный'),
         default=False,
         # help_text=_() TODO: заполнить
     )
