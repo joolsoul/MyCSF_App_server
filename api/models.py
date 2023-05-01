@@ -131,7 +131,7 @@ class Student(models.Model):
         on_delete=models.CASCADE,
         related_name='student',
         blank=False, null=False)
-    courseGroup = models.ForeignKey(
+    course_group = models.ForeignKey(
         "CourseGroup",
         on_delete=models.DO_NOTHING,
         related_name='student_group',
