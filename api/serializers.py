@@ -42,6 +42,44 @@ def validate_record_book_number(record_book_number):
         raise serializers.ValidationError()
 
 
+class ProfessorCreateSerializer(UserCreateSerializer):
+    username = serializers.CharField(max_length=50, source='user.username')
+    password = serializers.CharField(source='user.password', write_only=True)
+    first_name = serializers.CharField(max_length=20, source='user.first_name')
+    second_name = serializers.CharField(max_length=20, source='user.second_name')
+    patronymic = serializers.CharField(max_length=20, source='user.patronymic')
+    email = serializers.CharField(source='user.email')
+    phone = PhoneNumberField(source='user.phone')
+    department = serializers.CharField(max_length=50)
+
+    class Meta:
+        model = Professor
+        fields = ('username',
+                  'password',
+                  'first_name',
+                  'second_name',
+                  'patronymic',
+                  'email',
+                  'phone',
+                  'department')
+
+    def create(self, validated_data):
+        department = validated_data['department']
+
+        user = User.objects.create(username=validated_data['user']['username'],
+                                   first_name=validated_data['user']['first_name'],
+                                   second_name=validated_data['user']['second_name'],
+                                   patronymic=validated_data['user']['patronymic'],
+                                   email=validated_data['user']['email'],
+                                   phone=validated_data['user']['phone'])
+        user.set_password(validated_data['user']['password'])
+        user.save()
+
+        professor = Professor.objects.create(user=user,
+                                             department=department)
+        return professor
+
+
 class StudentCreateSerializer(UserCreateSerializer):
     username = serializers.CharField(max_length=50, source='user.username')
     password = serializers.CharField(source='user.password', write_only=True)
@@ -52,7 +90,7 @@ class StudentCreateSerializer(UserCreateSerializer):
     phone = PhoneNumberField(source='user.phone')
     year_of_enrollment = serializers.CharField(max_length=4)
     record_book_number = serializers.CharField(max_length=20)
-    course_group_id = serializers.CharField()
+    course_group_id = serializers.IntegerField()
 
     class Meta:
         model = Student
@@ -65,8 +103,7 @@ class StudentCreateSerializer(UserCreateSerializer):
                   'phone',
                   'year_of_enrollment',
                   'record_book_number',
-                  'course_group_id'
-                  )
+                  'course_group_id')
 
     def validate(self, attrs):
 
@@ -89,7 +126,7 @@ class StudentCreateSerializer(UserCreateSerializer):
 
         try:
             course_group = CourseGroup.objects.get(pk=validated_data['course_group_id'])
-        except ObjectDoesNotExist:
+        except Exception:
             raise serializers.ValidationError("Недопустимое значение course_group_id")
         year_of_enrollment = validated_data['year_of_enrollment']
         record_book_number = validated_data['record_book_number']
