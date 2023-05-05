@@ -1,13 +1,13 @@
 from djoser.serializers import UserCreateSerializer
 from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer
-from django.core.exceptions import ObjectDoesNotExist
 
 from api.models import User, Student
 from api.models import Professor
 from api.models import CourseGroup
 from phonenumber_field.serializerfields import PhoneNumberField
-from datetime import datetime
+
+from api.validators import validate_year_of_enrollment, validate_record_book_number
 
 
 class StudentSerializer(ModelSerializer):
@@ -28,79 +28,68 @@ class CourseGroupSerializer(ModelSerializer):
         fields = '__all__'
 
 
-def validate_year_of_enrollment(year_of_enrollment):
-    if year_of_enrollment is None \
-            or len(year_of_enrollment) != 4 \
-            or int(year_of_enrollment) < 1990 \
-            or int(year_of_enrollment) > int(datetime.now().year):
-        raise serializers.ValidationError()
-
-
-def validate_record_book_number(record_book_number):
-    if record_book_number is None \
-            or len(record_book_number) < 10:
-        raise serializers.ValidationError()
-
-
-class ProfessorCreateSerializer(UserCreateSerializer):
-    username = serializers.CharField(max_length=50, source='user.username')
-    password = serializers.CharField(source='user.password', write_only=True)
-    first_name = serializers.CharField(max_length=20, source='user.first_name')
-    second_name = serializers.CharField(max_length=20, source='user.second_name')
-    patronymic = serializers.CharField(max_length=20, source='user.patronymic')
-    email = serializers.CharField(source='user.email')
-    phone = PhoneNumberField(source='user.phone')
-    department = serializers.CharField(max_length=50)
+class MyUserCreateSerializer(UserCreateSerializer):
+    username = serializers.CharField(max_length=50)
+    password = serializers.CharField(write_only=True)
+    first_name = serializers.CharField(max_length=20)
+    second_name = serializers.CharField(max_length=20)
+    patronymic = serializers.CharField(max_length=20)
+    email = serializers.CharField()
+    phone = PhoneNumberField()
 
     class Meta:
-        model = Professor
+        model = User
         fields = ('username',
                   'password',
                   'first_name',
                   'second_name',
                   'patronymic',
                   'email',
-                  'phone',
+                  'phone')
+
+    def create(self, validated_data):
+        user = User.objects.create(username=validated_data['username'],
+                                   first_name=validated_data['first_name'],
+                                   second_name=validated_data['second_name'],
+                                   patronymic=validated_data['patronymic'],
+                                   email=validated_data['email'],
+                                   phone=validated_data['phone'])
+        user.set_password(validated_data['password'])
+        user.save()
+        return user
+
+
+class ProfessorCreateSerializer(ModelSerializer):
+    user = MyUserCreateSerializer(required=True)
+    department = serializers.CharField(max_length=50)
+
+    class Meta:
+        model = Professor
+        fields = ('user',
                   'department')
 
     def create(self, validated_data):
         department = validated_data['department']
 
-        user = User.objects.create(username=validated_data['user']['username'],
-                                   first_name=validated_data['user']['first_name'],
-                                   second_name=validated_data['user']['second_name'],
-                                   patronymic=validated_data['user']['patronymic'],
-                                   email=validated_data['user']['email'],
-                                   phone=validated_data['user']['phone'])
-        user.set_password(validated_data['user']['password'])
-        user.save()
+        user_data = validated_data.pop('user')
+        user_serializer = MyUserCreateSerializer(data=user_data)
+        user_serializer.is_valid(raise_exception=True)
+        user = user_serializer.save()
 
         professor = Professor.objects.create(user=user,
                                              department=department)
         return professor
 
 
-class StudentCreateSerializer(UserCreateSerializer):
-    username = serializers.CharField(max_length=50, source='user.username')
-    password = serializers.CharField(source='user.password', write_only=True)
-    first_name = serializers.CharField(max_length=20, source='user.first_name')
-    second_name = serializers.CharField(max_length=20, source='user.second_name')
-    patronymic = serializers.CharField(max_length=20, source='user.patronymic')
-    email = serializers.CharField(source='user.email')
-    phone = PhoneNumberField(source='user.phone')
+class StudentCreateSerializer(ModelSerializer):
+    user = MyUserCreateSerializer(required=True)
     year_of_enrollment = serializers.CharField(max_length=4)
     record_book_number = serializers.CharField(max_length=20)
     course_group_id = serializers.IntegerField()
 
     class Meta:
         model = Student
-        fields = ('username',
-                  'password',
-                  'first_name',
-                  'second_name',
-                  'patronymic',
-                  'email',
-                  'phone',
+        fields = ('user',
                   'year_of_enrollment',
                   'record_book_number',
                   'course_group_id')
@@ -123,7 +112,6 @@ class StudentCreateSerializer(UserCreateSerializer):
         return attrs
 
     def create(self, validated_data):
-
         try:
             course_group = CourseGroup.objects.get(pk=validated_data['course_group_id'])
         except Exception:
@@ -131,14 +119,10 @@ class StudentCreateSerializer(UserCreateSerializer):
         year_of_enrollment = validated_data['year_of_enrollment']
         record_book_number = validated_data['record_book_number']
 
-        user = User.objects.create(username=validated_data['user']['username'],
-                                   first_name=validated_data['user']['first_name'],
-                                   second_name=validated_data['user']['second_name'],
-                                   patronymic=validated_data['user']['patronymic'],
-                                   email=validated_data['user']['email'],
-                                   phone=validated_data['user']['phone'])
-        user.set_password(validated_data['user']['password'])
-        user.save()
+        user_data = validated_data.pop('user')
+        user_serializer = MyUserCreateSerializer(data=user_data)
+        user_serializer.is_valid(raise_exception=True)
+        user = user_serializer.save()
 
         student = Student.objects.create(user=user,
                                          year_of_enrollment=year_of_enrollment,
