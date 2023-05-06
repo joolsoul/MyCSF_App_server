@@ -1,14 +1,24 @@
+import os
+
 from django.conf import settings
 from django.contrib import auth
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
+from django.core.validators import FileExtensionValidator
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from phonenumber_field.modelfields import PhoneNumberField
 
+from pytils.translit import slugify
 
 from api.validators import CustomUnicodeUsernameValidator
+
+
+def transliterate_filename(filename):
+    name, ext = os.path.splitext(filename)
+    name = slugify(name)
+    return f'{name}{ext}'
 
 
 class UserManager(BaseUserManager):
@@ -150,7 +160,7 @@ class Professor(models.Model):
 
 class CourseGroup(models.Model):
     course_number = models.IntegerField(_('Номер курса'), blank=False)
-    group_number = models.CharField(_('Номер группы'), max_length=10, blank=False) # TODO: валидация двух полей
+    group_number = models.CharField(_('Номер группы'), max_length=10, blank=False)  # TODO: валидация двух полей
     EDUCATION_LEVELS = [
         ('b', "bachelor"),
         ('m', "magistracy"),
@@ -163,13 +173,20 @@ class CourseGroup(models.Model):
 
 
 class Map(models.Model):
+    def get_map_path(self, filename):
+        path = f'maps/{transliterate_filename(filename)}'
+        return path
+
     BUILDINGS = [
         ('m', "main building"),
         ('ex', "extension building")
     ]
     building = models.CharField(_('building'), max_length=2, choices=BUILDINGS, blank=True)
-    building_level = models.IntegerField(_('level of building'), choices=BUILDINGS)
-    map_file = models.FilePathField()   # TODO: !
+    building_level = models.IntegerField(_('level of building'))
+    map_file = models.FileField(upload_to=get_map_path,
+                                validators=[
+                                    FileExtensionValidator(['png', 'jpg', 'jpeg'])
+                                ])
 
 
 class Message(models.Model):
@@ -188,9 +205,16 @@ class Message(models.Model):
 
 
 class Schedule(models.Model):
-    schedule_file = models.FilePathField()  # TODO: !
+    def get_schedule_path(self, filename):
+        path = f'schedules/{transliterate_filename(filename)}'
+        return path
+
     course_group = models.ForeignKey("CourseGroup",
                                      on_delete=models.DO_NOTHING, related_name='schedule', blank=False, null=False)
+    schedule_file = models.FileField(upload_to=get_schedule_path,
+                                     validators=[
+                                         FileExtensionValidator(['json'])
+                                     ])
 
 
 class Event(models.Model):
@@ -221,3 +245,5 @@ class Publication(models.Model):
     publication_datetime = models.DateTimeField(_('publication datetime'), default=timezone.now)
     event = models.ForeignKey("Event", on_delete=models.DO_NOTHING, related_name='publication', blank=True,
                               null=True)
+
+#     //TODO: добавить изображение публикации?

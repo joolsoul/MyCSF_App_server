@@ -1,10 +1,9 @@
-from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
 
-from api.views import StudentApiList, StudentViewSet, ProfessorViewSet
-from api.views import ProfessorApiList
 from api.views import CourseGroupApiList
+from api.views import ProfessorApiList
+from api.views import StudentApiList, StudentViewSet, ProfessorViewSet
 
 router = routers.SimpleRouter()
 router.register('auth/users/students', StudentViewSet)
