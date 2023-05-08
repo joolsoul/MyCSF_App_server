@@ -167,9 +167,18 @@ class CourseGroup(models.Model):
         ('p', "postgraduate"),
         ('s', "specialty")
     ]
+    EDUCATION_LEVELS_RU = {
+        'b': "бакалавриат",
+        'm': "магистратура",
+        'p': "аспирантура",
+        's': "специалитет"
+    }
     higher_education_level = models.CharField(
         _('Ступень высшего образования'),
         max_length=1, choices=EDUCATION_LEVELS, blank=True)
+
+    def __str__(self):
+        return f"{self.course_number} курс {self.group_number} группа {self.EDUCATION_LEVELS_RU[self.higher_education_level]}"
 
 
 class Map(models.Model):
