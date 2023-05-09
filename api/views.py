@@ -19,7 +19,12 @@ User = get_user_model()
 
 # Create your views here.
 
-class ScheduleApiList(generics.ListCreateAPIView):
+class ScheduleApiList(generics.ListAPIView):
+    queryset = Schedule.objects.all()
+    serializer_class = ScheduleSerializer
+
+
+class ScheduleApi(generics.RetrieveAPIView):
     queryset = Schedule.objects.all()
     serializer_class = ScheduleSerializer
 
