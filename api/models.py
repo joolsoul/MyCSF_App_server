@@ -12,7 +12,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 from pytils.translit import slugify
 
-from api.validators import CustomUnicodeUsernameValidator
+from api.validators import CustomUnicodeUsernameValidator, FileValidator
 
 
 def transliterate_filename(filename):
@@ -28,7 +28,6 @@ class UserManager(BaseUserManager):
         if not username:
             raise ValueError('The given username must be set')
         email = self.normalize_email(email)
-
         user = self.model(username=username, email=email, **extra_fields)
         user.password = make_password(password)
         user.save(using=self._db)
@@ -222,7 +221,8 @@ class Schedule(models.Model):
                                      on_delete=models.DO_NOTHING, related_name='schedule', blank=False, null=False)
     schedule_file = models.FileField(upload_to=get_schedule_path,
                                      validators=[
-                                         FileExtensionValidator(['json'])
+                                         FileExtensionValidator(['json']),
+                                         FileValidator(1024 * 100)
                                      ])
 
 

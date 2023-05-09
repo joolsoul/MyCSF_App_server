@@ -1,27 +1,28 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.tokens import default_token_generator
 from djoser import signals, utils
-from djoser.compat import get_user_email
 from djoser.conf import settings
-from rest_framework import generics, status, permissions
+from rest_framework import generics, status
 from rest_framework.decorators import action
 from rest_framework.exceptions import NotFound
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
-from api.models import Student
-from api.models import Professor
-from api.models import CourseGroup
+from api.models import Student, Professor, CourseGroup, Schedule
 from api.permissions import AdminOrReadOnlyPermission
-from api.serializers import StudentSerializer, StudentCreateSerializer, ProfessorCreateSerializer
-from api.serializers import ProfessorSerializer
 from api.serializers import CourseGroupSerializer
-from djoser.views import UserViewSet
+from api.serializers import ProfessorSerializer, ScheduleSerializer
+from api.serializers import StudentSerializer, StudentCreateSerializer, ProfessorCreateSerializer
 
 User = get_user_model()
 
 
 # Create your views here.
+
+class ScheduleApiList(generics.ListCreateAPIView):
+    queryset = Schedule.objects.all()
+    serializer_class = ScheduleSerializer
+
 
 class StudentApiList(generics.ListCreateAPIView):
     queryset = Student.objects.all()
@@ -37,7 +38,6 @@ class CourseGroupApiList(generics.ListCreateAPIView):
     queryset = CourseGroup.objects.all()
     serializer_class = CourseGroupSerializer
     permission_classes = [AdminOrReadOnlyPermission]
-
 
 
 # class StudentViewSet(UserViewSet):

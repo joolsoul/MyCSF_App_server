@@ -2,12 +2,13 @@ from djoser.serializers import UserCreateSerializer
 from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer
 
-from api.models import User, Student
+from api.models import User, Student, Schedule
 from api.models import Professor
 from api.models import CourseGroup
+from rest_framework.exceptions import ParseError
 from phonenumber_field.serializerfields import PhoneNumberField
 
-from api.validators import validate_year_of_enrollment, validate_record_book_number
+from api.validators import validate_year_of_enrollment, validate_record_book_number, schedule_file_validate
 
 
 class StudentSerializer(ModelSerializer):
@@ -26,6 +27,22 @@ class CourseGroupSerializer(ModelSerializer):
     class Meta:
         model = CourseGroup
         fields = '__all__'
+
+
+class ScheduleSerializer(ModelSerializer):
+    class Meta:
+        model = Schedule
+        fields = '__all__'
+
+    def validate(self, attrs):
+        schedule_file = attrs.get("schedule_file")
+
+        try:
+            schedule_file_validate(schedule_file)
+        except ValueError as error:
+            raise ParseError(detail=error.message)
+
+        return attrs
 
 
 class MyUserCreateSerializer(UserCreateSerializer):
