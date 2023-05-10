@@ -64,6 +64,8 @@ class MyUserCreateSerializer(UserCreateSerializer):
                   'email',
                   'phone')
 
+    #     teacher/student - user-role
+
     def create(self, validated_data):
         user = User.objects.create(username=validated_data['username'],
                                    first_name=validated_data['first_name'],
@@ -87,7 +89,6 @@ class ProfessorCreateSerializer(ModelSerializer):
 
     def create(self, validated_data):
         department = validated_data['department']
-
         user_data = validated_data.pop('user')
         user_serializer = MyUserCreateSerializer(data=user_data)
         user_serializer.is_valid(raise_exception=True)

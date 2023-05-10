@@ -1,3 +1,5 @@
+import json
+
 from django.contrib.auth import get_user_model
 from django.contrib.auth.tokens import default_token_generator
 from djoser import signals, utils
@@ -49,6 +51,34 @@ class CourseGroupApiList(generics.ListCreateAPIView):
     permission_classes = [AdminOrReadOnlyPermission]
 
 
+class UserScheduleViewSet(RetrieveModelMixin, GenericViewSet):
+    permission_classes = [IsAuthenticated]
+    queryset = Schedule.objects.all()
+    serializer_class = ScheduleSerializer
+
+    def get_object(self):
+        try:
+            user = self.request.user
+        except Exception:
+            raise NotFound('user not found')
+
+        try:
+            student = user.student
+            course_group = student.course_group
+
+            try:
+                # //TODO: разобраться с сериализатором
+                schedule = Schedule.objects.get(course_group_id=course_group)
+                file = json.load(schedule.schedule_file)
+                return schedule
+            except Exception:
+                raise NotFound('course group not found')
+
+        except Exception:
+            raise NotFound('student not found')
+
+        return None
+
 # id - ignored
 class UserShortInfoViewSet(RetrieveModelMixin, GenericViewSet):
     permission_classes = [IsAuthenticated]
@@ -56,6 +86,9 @@ class UserShortInfoViewSet(RetrieveModelMixin, GenericViewSet):
     serializer_class = MyUserCreateSerializer
 
     def get_object(self):
+        # user = self.request.user
+        # student = user.student
+
         return self.request.user
 
 

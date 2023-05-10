@@ -1,5 +1,8 @@
-import os
 
+import os
+from datetime import datetime, timedelta
+
+import jwt
 from django.conf import settings
 from django.contrib import auth
 from django.contrib.auth.hashers import make_password
@@ -8,6 +11,7 @@ from django.core.validators import FileExtensionValidator
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
+
 from phonenumber_field.modelfields import PhoneNumberField
 
 from pytils.translit import slugify
@@ -129,6 +133,19 @@ class User(AbstractBaseUser, PermissionsMixin):
     EMAIL_FIELD = 'email'
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email']
+
+    # def token(self):
+    #     return self._generate_jwt_token()
+    #
+    # def _generate_jwt_token(self):
+    #     dt = datetime.now() + timedelta(days=1)
+    #
+    #     token = jwt.encode({
+    #         'id': self.pk,
+    #         'exp': int(dt.strftime('%s'))
+    #     }, settings.SECRET_KEY, algorithm='HS256')
+    #
+    #     return token.decode('utf-8')
 
 
 class Student(models.Model):
