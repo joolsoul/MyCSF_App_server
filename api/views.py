@@ -5,12 +5,16 @@ from djoser.conf import settings
 from rest_framework import generics, status
 from rest_framework.decorators import action
 from rest_framework.exceptions import NotFound
+from rest_framework.mixins import RetrieveModelMixin
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from rest_framework.viewsets import ModelViewSet
+from rest_framework.status import HTTP_200_OK
+from rest_framework.views import APIView
+from rest_framework.viewsets import ModelViewSet, GenericViewSet
 
 from api.models import Student, Professor, CourseGroup, Schedule
 from api.permissions import AdminOrReadOnlyPermission
-from api.serializers import CourseGroupSerializer
+from api.serializers import CourseGroupSerializer, MyUserCreateSerializer
 from api.serializers import ProfessorSerializer, ScheduleSerializer
 from api.serializers import StudentSerializer, StudentCreateSerializer, ProfessorCreateSerializer
 
@@ -43,6 +47,16 @@ class CourseGroupApiList(generics.ListCreateAPIView):
     queryset = CourseGroup.objects.all()
     serializer_class = CourseGroupSerializer
     permission_classes = [AdminOrReadOnlyPermission]
+
+
+# id - ignored
+class UserShortInfoViewSet(RetrieveModelMixin, GenericViewSet):
+    permission_classes = [IsAuthenticated]
+    queryset = User.objects.all()
+    serializer_class = MyUserCreateSerializer
+
+    def get_object(self):
+        return self.request.user
 
 
 # class StudentViewSet(UserViewSet):
