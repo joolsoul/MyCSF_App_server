@@ -15,10 +15,11 @@ def get_professor_schedule(professor=None):
         if filename.endswith(".json"):
             current_schedule = json.load(open(ROOT_PATH + '/' + filename, encoding='utf-8', mode="r", ))
 
-            for day, v in current_schedule['numerator'].items():
+        for week in current_schedule.keys():
+            for day, v in current_schedule[week].items():
                 for couple in v:
                     if len(couple) != 0 and couple['professor'] == identification:
-                        schedule_dict['numerator'][day].append(_create_couple_dict(
+                        schedule_dict[week][day].append(_create_couple_dict(
                             couple['timeFrom'],
                             couple['timeTo'],
                             couple['subjectName'],
