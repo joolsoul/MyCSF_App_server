@@ -1,11 +1,12 @@
 import json
 import os
 
-ROOT_PATH = 'C:/Users/Ivan/PycharmProjects/MyCSF_App_server/media/schedules'
+from django.conf import settings
+
+ROOT_PATH = os.path.join(settings.MEDIA_ROOT, 'schedules')
 
 
 def get_professor_schedule(professor=None):
-    # identification = 'Зенин К.В.'
     identification = professor.user.second_name + ' ' + professor.user.first_name[0] + '.' + professor.user.patronymic[0] + '.'
 
     schedule_dict = _create_empty_schedule_dict()

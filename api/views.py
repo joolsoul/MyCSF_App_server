@@ -19,6 +19,7 @@ from api.permissions import AdminOrReadOnlyPermission
 from api.serializers import CourseGroupSerializer, MyUserCreateSerializer
 from api.serializers import ProfessorSerializer, ScheduleSerializer
 from api.serializers import StudentSerializer, StudentCreateSerializer, ProfessorCreateSerializer
+from api.utilities import get_professor_schedule
 
 User = get_user_model()
 
@@ -56,28 +57,40 @@ class UserScheduleViewSet(RetrieveModelMixin, GenericViewSet):
     queryset = Schedule.objects.all()
     serializer_class = ScheduleSerializer
 
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        return Response(instance, status=HTTP_200_OK)
+
     def get_object(self):
         try:
             user = self.request.user
         except Exception:
             raise NotFound('user not found')
-
+        err_count = 0
         try:
             student = user.student
             course_group = student.course_group
 
             try:
-                # //TODO: разобраться с сериализатором
                 schedule = Schedule.objects.get(course_group_id=course_group)
                 file = json.load(schedule.schedule_file)
-                return schedule
+                return file
             except Exception:
                 raise NotFound('course group not found')
 
         except Exception:
-            raise NotFound('student not found')
+            err_count += 1
 
-        return None
+        try:
+            professor = user.professor
+            professor_schedule = get_professor_schedule(professor)
+            return professor_schedule
+        except Exception:
+            err_count += 1
+
+        if err_count >= 2:
+            raise Exception('user dont load')
+
 
 # id - ignored
 class UserShortInfoViewSet(RetrieveModelMixin, GenericViewSet):

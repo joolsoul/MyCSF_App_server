@@ -103,7 +103,7 @@ class StudentCreateSerializer(ModelSerializer):
     user = MyUserCreateSerializer(required=True)
     year_of_enrollment = serializers.CharField(max_length=4)
     record_book_number = serializers.CharField(max_length=20)
-    course_group_id = serializers.IntegerField()
+    course_group_id = serializers.IntegerField(required=False, allow_null=True)
 
     class Meta:
         model = Student
@@ -130,10 +130,13 @@ class StudentCreateSerializer(ModelSerializer):
         return attrs
 
     def create(self, validated_data):
-        try:
-            course_group = CourseGroup.objects.get(pk=validated_data['course_group_id'])
-        except Exception:
-            raise serializers.ValidationError("Недопустимое значение course_group_id")
+        if validated_data.get('course_group_id') is not None:
+            try:
+                course_group = CourseGroup.objects.get(pk=validated_data['course_group_id'])
+            except Exception:
+                raise serializers.ValidationError("Недопустимое значение course_group_id")
+        else:
+            course_group = None
         year_of_enrollment = validated_data['year_of_enrollment']
         record_book_number = validated_data['record_book_number']
 

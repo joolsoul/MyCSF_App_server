@@ -16,6 +16,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 from pytils.translit import slugify
 
+from api.storage import OverwriteStorage
 from api.validators import CustomUnicodeUsernameValidator, FileValidator
 
 
@@ -92,6 +93,7 @@ class User(AbstractBaseUser, PermissionsMixin):
             'unique': _("A user with that username already exists."),
         },
     )
+    # user_image = models.ImageField() //TODO: image upload
     first_name = models.CharField(_('first name'), max_length=20, blank=True)
     second_name = models.CharField(_('second name'), max_length=20, blank=True)
     patronymic = models.CharField(_('patronymic'), max_length=20, blank=True)
@@ -230,8 +232,13 @@ class Message(models.Model):
 
 
 class Schedule(models.Model):
+
     def get_schedule_path(self, filename):
-        path = f'schedules/{transliterate_filename(filename)}'
+
+        path = f'schedules/' \
+               f'{self.course_group.course_number}_' \
+               f'{self.course_group.group_number}_' \
+               f'{self.course_group.higher_education_level}.json'
         return path
 
     course_group = models.ForeignKey("CourseGroup",
@@ -240,7 +247,9 @@ class Schedule(models.Model):
                                      validators=[
                                          FileExtensionValidator(['json']),
                                          FileValidator(1024 * 100)
-                                     ])
+                                     ],
+                                     storage=OverwriteStorage(),
+                                     max_length=50)
 
 
 class Event(models.Model):
