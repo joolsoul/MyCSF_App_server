@@ -3,7 +3,7 @@ from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer
 
 from api.models import User, Student, Schedule
-from api.models import Professor
+from api.models import Professor, Map
 from api.models import CourseGroup
 from rest_framework.exceptions import ParseError
 from phonenumber_field.serializerfields import PhoneNumberField
@@ -14,6 +14,12 @@ from api.validators import validate_year_of_enrollment, validate_record_book_num
 class StudentSerializer(ModelSerializer):
     class Meta:
         model = User
+        fields = '__all__'
+
+
+class MapSerializer(ModelSerializer):
+    class Meta:
+        model = Map
         fields = '__all__'
 
 

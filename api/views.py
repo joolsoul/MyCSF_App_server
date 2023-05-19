@@ -11,13 +11,12 @@ from rest_framework.mixins import RetrieveModelMixin
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK
-from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
 
-from api.models import Student, Professor, CourseGroup, Schedule
+from api.models import Student, Professor, CourseGroup, Schedule, Map
 from api.permissions import AdminOrReadOnlyPermission
 from api.serializers import CourseGroupSerializer, MyUserCreateSerializer
-from api.serializers import ProfessorSerializer, ScheduleSerializer
+from api.serializers import ProfessorSerializer, ScheduleSerializer, MapSerializer
 from api.serializers import StudentSerializer, StudentCreateSerializer, ProfessorCreateSerializer
 from api.utilities import get_professor_schedule
 
@@ -50,6 +49,17 @@ class CourseGroupApiList(generics.ListCreateAPIView):
     queryset = CourseGroup.objects.all()
     serializer_class = CourseGroupSerializer
     permission_classes = [AdminOrReadOnlyPermission]
+
+
+class MapApiView(ModelViewSet):
+    permission_classes = [IsAuthenticated]
+    queryset = Map.objects.all()
+    serializer_class = MapSerializer
+
+    def get_queryset(self):
+        building = self.request.query_params.get('building')
+        queryset = Map.objects.filter(building=building)
+        return queryset
 
 
 class UserScheduleViewSet(RetrieveModelMixin, GenericViewSet):
