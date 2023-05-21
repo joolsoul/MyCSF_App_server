@@ -9,6 +9,8 @@ from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 from django.core.validators import FileExtensionValidator
 from django.db import models
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
@@ -130,11 +132,36 @@ class User(AbstractBaseUser, PermissionsMixin):
         # help_text=_() TODO: заполнить
     )
 
+    def get_image_path(self, filename):
+        name, ext = os.path.splitext(filename)
+        path = f'avatars/{self.username}{ext}'
+        return path
+
+    avatar = models.ImageField(
+        null=True,
+        blank=True,
+        upload_to=get_image_path,
+        validators=[
+            FileExtensionValidator(['png', 'jpg', 'gif', 'jpeg'])
+        ]
+    )
+
     objects = UserManager()
 
     EMAIL_FIELD = 'email'
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email']
+
+
+@receiver(pre_save, sender=User)
+def delete_old_avatar(sender, instance, **kwargs):
+    if instance.pk:
+        try:
+            old_instance = User.objects.get(pk=instance.pk)
+            if old_instance.avatar != instance.avatar:
+                old_instance.avatar.delete(save=False)
+        except User.DoesNotExist:
+            pass
 
     # def token(self):
     #     return self._generate_jwt_token()

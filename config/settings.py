@@ -21,6 +21,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
+HIDE_USERS = True
+
 # Application definition
 
 INSTALLED_APPS = [

@@ -1,3 +1,5 @@
+import os
+
 from djoser.serializers import UserCreateSerializer
 from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer
@@ -51,6 +53,23 @@ class ScheduleSerializer(ModelSerializer):
         return attrs
 
 
+class SimpleUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = '__all__'
+
+    # def update(self, instance, validated_data):
+    #     avatar = validated_data.get('avatar', None)
+    #     if avatar:
+    #         if os.path.exists(instance.avatar.path):
+    #             os.remove(instance.avatar.path)
+    #         # old_avatar_path = instance.avatar.path
+    #         # print(old_avatar_path)
+    #         # os.remove(old_avatar_path)
+    #         instance.avatar.delete()
+    #     return super().update(instance, validated_data)
+
+
 class MyUserCreateSerializer(UserCreateSerializer):
     username = serializers.CharField(max_length=50)
     password = serializers.CharField(write_only=True)
@@ -59,6 +78,22 @@ class MyUserCreateSerializer(UserCreateSerializer):
     patronymic = serializers.CharField(max_length=20)
     email = serializers.CharField()
     phone = PhoneNumberField()
+    avatar = serializers.ImageField(max_length=None, use_url=True, allow_null=True, required=False)
+    role = serializers.SerializerMethodField('find_role', read_only=True, required=False)
+
+    def find_role(self, obj):
+        try:
+            if obj.student is not None:
+                return "s"
+        except Exception as e:
+            print(e)
+        try:
+            if obj.professor is not None:
+                return "p"
+        except Exception as e:
+            print(e)
+
+        return "n"
 
     class Meta:
         model = User
@@ -68,7 +103,10 @@ class MyUserCreateSerializer(UserCreateSerializer):
                   'second_name',
                   'patronymic',
                   'email',
-                  'phone')
+                  'phone',
+                  'role',
+                  'avatar'
+                  )
 
     #     teacher/student - user-role
 
@@ -91,9 +129,10 @@ class ProfessorCreateSerializer(ModelSerializer):
     class Meta:
         model = Professor
         fields = ('user',
-                  'department')
+                  'department',)
 
     def create(self, validated_data):
+        print(validated_data)
         department = validated_data['department']
         user_data = validated_data.pop('user')
         user_serializer = MyUserCreateSerializer(data=user_data)

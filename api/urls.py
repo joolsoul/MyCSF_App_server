@@ -1,7 +1,7 @@
 from django.urls import path, include
 from rest_framework import routers
 
-from api.views import CourseGroupApiList, UserShortInfoViewSet, UserScheduleViewSet
+from api.views import CourseGroupApiList, UserShortInfoViewSet, UserScheduleViewSet, UserAvatarUpdateView
 from api.views import ProfessorApiList
 from api.views import StudentApiList, StudentViewSet, ProfessorViewSet, ScheduleApiList, ScheduleApi, MapApiView
 
@@ -9,8 +9,9 @@ router = routers.SimpleRouter()
 router.register('auth/users/students', StudentViewSet)
 router.register('auth/users/professors', ProfessorViewSet)
 router.register('auth/users/shortinfo', UserShortInfoViewSet)
-router.register('auth/users/schedule', UserScheduleViewSet)
-router.register('auth/users/map', MapApiView)
+router.register('schedule', UserScheduleViewSet)
+router.register('map', MapApiView)
+router.register('users/avatars', UserAvatarUpdateView)
 
 urlpatterns = [
     path('student/', StudentApiList.as_view()),

@@ -7,15 +7,16 @@ from djoser.conf import settings
 from rest_framework import generics, status
 from rest_framework.decorators import action
 from rest_framework.exceptions import NotFound
-from rest_framework.mixins import RetrieveModelMixin
+from rest_framework.mixins import RetrieveModelMixin, UpdateModelMixin, CreateModelMixin
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
 
 from api.models import Student, Professor, CourseGroup, Schedule, Map
-from api.permissions import AdminOrReadOnlyPermission
-from api.serializers import CourseGroupSerializer, MyUserCreateSerializer
+from api.permissions import AdminOrReadOnlyPermission, IsOwnerOrAdmin
+from api.searchfilters import BuildingSearchFilter
+from api.serializers import CourseGroupSerializer, MyUserCreateSerializer, SimpleUserSerializer
 from api.serializers import ProfessorSerializer, ScheduleSerializer, MapSerializer
 from api.serializers import StudentSerializer, StudentCreateSerializer, ProfessorCreateSerializer
 from api.utilities import get_professor_schedule
@@ -52,14 +53,11 @@ class CourseGroupApiList(generics.ListCreateAPIView):
 
 
 class MapApiView(ModelViewSet):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AdminOrReadOnlyPermission]
     queryset = Map.objects.all()
     serializer_class = MapSerializer
-
-    def get_queryset(self):
-        building = self.request.query_params.get('building')
-        queryset = Map.objects.filter(building=building)
-        return queryset
+    filter_backends = [BuildingSearchFilter]
+    search_fields = ['building']
 
 
 class UserScheduleViewSet(RetrieveModelMixin, GenericViewSet):
@@ -109,10 +107,15 @@ class UserShortInfoViewSet(RetrieveModelMixin, GenericViewSet):
     serializer_class = MyUserCreateSerializer
 
     def get_object(self):
-        # user = self.request.user
-        # student = user.student
-
-        return self.request.user
+        try:
+            id = int(self.kwargs.get("pk"))
+            if id <= 0:
+                return self.request.user
+            else:
+                return super().get_object()
+        except Exception as e:
+            print(e)
+            return super().get_object()
 
 
 # class StudentViewSet(UserViewSet):
@@ -154,9 +157,39 @@ class UserShortInfoViewSet(RetrieveModelMixin, GenericViewSet):
 #
 #         return self.serializer_class
 
+class UserAvatarUpdateView(UpdateModelMixin, GenericViewSet):
+    queryset = User.objects.all()
+    serializer_class = SimpleUserSerializer
+    permission_classes = [IsAuthenticated, IsOwnerOrAdmin]
+
+    def partial_update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+
+        if 'avatar' in request.FILES:
+            instance.avatar = request.FILES['avatar']
+            instance.save()
+
+        self.perform_update(serializer)
+
+        return Response(serializer.data)
+
+    def get_object(self):
+        try:
+            id = int(self.kwargs.get("pk"))
+            if id <= 0:
+                return self.request.user
+            else:
+                return super().get_object()
+        except Exception as e:
+            print(e)
+            return super().get_object()
+
+
 class ProfessorViewSet(ModelViewSet):
     serializer_class = ProfessorCreateSerializer
-    queryset = User.objects.all()
+    queryset = Professor.objects.all()
     permission_classes = settings.PERMISSIONS.user
     token_generator = default_token_generator
     lookup_field = settings.USER_ID_FIELD
@@ -293,7 +326,7 @@ class ProfessorViewSet(ModelViewSet):
 
 class StudentViewSet(ModelViewSet):
     serializer_class = StudentCreateSerializer
-    queryset = User.objects.all()
+    queryset = Student.objects.all()
     permission_classes = settings.PERMISSIONS.user
     token_generator = default_token_generator
     lookup_field = settings.USER_ID_FIELD
