@@ -3,8 +3,8 @@ from rest_framework import routers
 
 from api.views import CourseGroupApiList, UserShortInfoViewSet, UserScheduleViewSet, UserAvatarUpdateView, \
     MapChoicesView
-from api.views import ProfessorApiList
-from api.views import StudentApiList, StudentViewSet, ProfessorViewSet, ScheduleApiList, ScheduleApi, MapApiView
+# from api.views import ProfessorApiList
+from api.views import StudentViewSet, ProfessorViewSet, ScheduleApiList, ScheduleApi, MapApiView
 
 router = routers.SimpleRouter()
 router.register('auth/users/students', StudentViewSet)
@@ -15,8 +15,8 @@ router.register('map', MapApiView)
 router.register('users/avatars', UserAvatarUpdateView)
 
 urlpatterns = [
-    path('student/', StudentApiList.as_view()),
-    path('professor/', ProfessorApiList.as_view()),
+    # path('student/', StudentApiList.as_view()),
+    # path('professor/', ProfessorApiList.as_view()),
     path('courseGroup/', CourseGroupApiList.as_view()),
     path('schedule/', ScheduleApiList.as_view()),
     path('schedule/<int:pk>/', ScheduleApi.as_view()),

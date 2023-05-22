@@ -37,14 +37,14 @@ class ScheduleApi(generics.RetrieveAPIView):
     serializer_class = ScheduleSerializer
 
 
-class StudentApiList(generics.ListCreateAPIView):
-    queryset = Student.objects.all()
-    serializer_class = StudentSerializer
-
-
-class ProfessorApiList(generics.ListCreateAPIView):
-    queryset = Professor.objects.all()
-    serializer_class = ProfessorSerializer
+# class StudentApiList(generics.ListCreateAPIView):
+#     queryset = Student.objects.all()
+#     serializer_class = StudentSerializer
+#
+#
+# class ProfessorApiList(generics.ListCreateAPIView):
+#     queryset = Professor.objects.all()
+#     serializer_class = ProfessorSerializer
 
 
 class CourseGroupApiList(generics.ListCreateAPIView):
