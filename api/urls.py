@@ -20,7 +20,7 @@ urlpatterns = [
     path('courseGroup/', CourseGroupApiList.as_view()),
     path('schedule/', ScheduleApiList.as_view()),
     path('schedule/<int:pk>/', ScheduleApi.as_view()),
-    path('map/choises/', MapChoicesView.as_view()),
+    path('map/choices/', MapChoicesView.as_view()),
     path('auth/', include('djoser.urls.jwt')),
     # path('auth/users/shortinfo', UserShortInfoView.as_view())
 ]
