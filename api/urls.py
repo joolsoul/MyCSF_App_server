@@ -1,7 +1,8 @@
 from django.urls import path, include
 from rest_framework import routers
 
-from api.views import CourseGroupApiList, UserShortInfoViewSet, UserScheduleViewSet, UserAvatarUpdateView
+from api.views import CourseGroupApiList, UserShortInfoViewSet, UserScheduleViewSet, UserAvatarUpdateView, \
+    MapChoicesView
 from api.views import ProfessorApiList
 from api.views import StudentApiList, StudentViewSet, ProfessorViewSet, ScheduleApiList, ScheduleApi, MapApiView
 
@@ -19,6 +20,7 @@ urlpatterns = [
     path('courseGroup/', CourseGroupApiList.as_view()),
     path('schedule/', ScheduleApiList.as_view()),
     path('schedule/<int:pk>/', ScheduleApi.as_view()),
+    path('map/choises/', MapChoicesView.as_view()),
     path('auth/', include('djoser.urls.jwt')),
     # path('auth/users/shortinfo', UserShortInfoView.as_view())
 ]

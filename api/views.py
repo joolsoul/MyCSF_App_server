@@ -11,6 +11,7 @@ from rest_framework.mixins import RetrieveModelMixin, UpdateModelMixin, CreateMo
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK
+from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
 
 from api.models import Student, Professor, CourseGroup, Schedule, Map
@@ -58,6 +59,13 @@ class MapApiView(ModelViewSet):
     serializer_class = MapSerializer
     filter_backends = [BuildingSearchFilter]
     search_fields = ['building']
+
+
+class MapChoicesView(APIView):
+    def get(self, request):
+        serializer = MapSerializer()
+        choices = serializer.fields['building'].choices
+        return Response(choices)
 
 
 class UserScheduleViewSet(RetrieveModelMixin, GenericViewSet):
