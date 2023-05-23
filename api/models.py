@@ -235,6 +235,12 @@ class Map(models.Model):
         ('m', "main building"),
         ('ex', "extension building")
     ]
+
+    BUILDINGS_RU = [
+        ('m', "главный корпус"),
+        ('ex', "пристройка")
+    ]
+
     building = models.CharField(_('building'), max_length=2, choices=BUILDINGS, blank=True)
     building_level = models.IntegerField(_('level of building'))
     map_file = models.FileField(upload_to=get_map_path,

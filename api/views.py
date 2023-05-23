@@ -65,7 +65,13 @@ class MapChoicesView(APIView):
     def get(self, request):
         serializer = MapSerializer()
         choices = serializer.fields['building'].choices
-        return Response(choices)
+
+        use_ru_param = request.query_params.get('use_ru')
+        if use_ru_param:
+            choices_ru = {key: dict(Map.BUILDINGS_RU).get(key) for key in choices.keys()}
+            return Response(choices_ru)
+        else:
+            return Response(choices)
 
 
 class UserScheduleViewSet(RetrieveModelMixin, GenericViewSet):
