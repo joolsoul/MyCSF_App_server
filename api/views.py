@@ -122,8 +122,8 @@ class UserShortInfoViewSet(RetrieveModelMixin, GenericViewSet):
 
     def get_object(self):
         try:
-            id = int(self.kwargs.get("pk"))
-            if id <= 0:
+            _id = int(self.kwargs.get("pk"))
+            if _id <= 0:
                 return self.request.user
             else:
                 return super().get_object()

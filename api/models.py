@@ -228,7 +228,7 @@ class CourseGroup(models.Model):
 
 class Map(models.Model):
     def get_map_path(self, filename):
-        path = f'maps/{transliterate_filename(filename)}'
+        path = f'maps/{self.building}_{self.building_level}.png'
         return path
 
     BUILDINGS = [
@@ -245,7 +245,7 @@ class Map(models.Model):
     building_level = models.IntegerField(_('level of building'))
     map_file = models.FileField(upload_to=get_map_path,
                                 validators=[
-                                    FileExtensionValidator(['png', 'jpg', 'jpeg'])
+                                    FileExtensionValidator(['png'])
                                 ])
 
 
