@@ -227,6 +227,8 @@ class CourseGroup(models.Model):
 
 
 class Map(models.Model):
+    # TODO: https://stackoverflow.com/questions/16041232/django-delete-filefield
+
     def get_map_path(self, filename):
         path = f'maps/{self.building}_{self.building_level}.png'
         return path
@@ -237,8 +239,8 @@ class Map(models.Model):
     ]
 
     BUILDINGS_RU = [
-        ('m', "главный корпус"),
-        ('ex', "пристройка")
+        ('m', "Главный корпус"),
+        ('ex', "Пристройка")
     ]
 
     building = models.CharField(_('building'), max_length=2, choices=BUILDINGS, blank=True)
