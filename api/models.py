@@ -316,4 +316,5 @@ class Publication(models.Model):
     event = models.ForeignKey("Event", on_delete=models.DO_NOTHING, related_name='publication', blank=True,
                               null=True)
 
-#     //TODO: добавить изображение публикации?
+    images = models.CharField(_('publication images'),
+                              blank=True, null=True)

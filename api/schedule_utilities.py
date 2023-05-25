@@ -1,13 +1,67 @@
+import datetime
 import json
 import os
 
 from django.conf import settings
+from rest_framework.exceptions import NotFound
+
+from api.models import Schedule
 
 ROOT_PATH = os.path.join(settings.MEDIA_ROOT, 'schedules')
 
 
-def get_professor_schedule(professor=None):
-    identification = professor.user.second_name + ' ' + professor.user.first_name[0] + '.' + professor.user.patronymic[0] + '.'
+def get_user_schedule(user, user_role, week=None, day=None):
+    file = None
+    if user_role == 'professor':
+        file = get_professor_schedule(user)
+    if user_role == 'student':
+        file = get_student_schedule(user)
+
+    if week is not None:
+        if week == 'n':
+            return file['numerator']
+        if week == 'd':
+            return file['denominator']
+        if week == 'a':
+            return file
+    if day is not None:
+        parse_date = datetime.datetime.strptime(day, "%d-%m-%Y").date()
+        week_number = parse_date.isocalendar().week
+        weekday = parse_date.weekday()
+
+        week_schedule = file
+
+        if week_number % 2 == 0:
+            week_schedule = file['denominator']
+        else:
+            week_schedule = file['numerator']
+
+        if weekday == 0:
+            return week_schedule['monday']
+        if weekday == 1:
+            return week_schedule['tuesday']
+        if weekday == 2:
+            return week_schedule['wednesday']
+        if weekday == 3:
+            return week_schedule['thursday']
+        if weekday == 4:
+            return week_schedule['friday']
+        if weekday == 5:
+            return week_schedule['saturday']
+
+
+def get_student_schedule(student):
+    try:
+        schedule = Schedule.objects.get(course_group_id=student.course_group)
+        file = json.load(schedule.schedule_file)
+        return file
+    except Exception:
+        raise NotFound('course group not found')
+
+
+def get_professor_schedule(professor):
+    identification = professor.user.second_name + ' ' + professor.user.first_name[0] + '.' + professor.user.patronymic[
+        0] + '.'
 
     schedule_dict = _create_empty_schedule_dict()
 
@@ -66,6 +120,3 @@ def _create_couple_dict(time_from, time_to, subject_name, classroom):
         'classroom': classroom
     }
 
-
-if __name__ == '__main__':
-    get_professor_schedule()

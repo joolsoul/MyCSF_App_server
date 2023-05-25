@@ -1,3 +1,4 @@
+import datetime
 import json
 
 from django.contrib.auth import get_user_model
@@ -20,21 +21,21 @@ from api.searchfilters import BuildingSearchFilter
 from api.serializers import CourseGroupSerializer, MyUserCreateSerializer, SimpleUserSerializer
 from api.serializers import ProfessorSerializer, ScheduleSerializer, MapSerializer
 from api.serializers import StudentSerializer, StudentCreateSerializer, ProfessorCreateSerializer
-from api.utilities import get_professor_schedule
+from api.schedule_utilities import get_professor_schedule, get_user_schedule
 
 User = get_user_model()
 
 
 # Create your views here.
 
-class ScheduleApiList(generics.ListAPIView):
-    queryset = Schedule.objects.all()
-    serializer_class = ScheduleSerializer
-
-
-class ScheduleApi(generics.RetrieveAPIView):
-    queryset = Schedule.objects.all()
-    serializer_class = ScheduleSerializer
+# class ScheduleApiList(generics.ListAPIView):
+#     queryset = Schedule.objects.all()
+#     serializer_class = ScheduleSerializer
+#
+#
+# class ScheduleApi(generics.RetrieveAPIView):
+#     queryset = Schedule.objects.all()
+#     serializer_class = ScheduleSerializer
 
 
 # class StudentApiList(generics.ListCreateAPIView):
@@ -74,6 +75,36 @@ class MapChoicesView(APIView):
             return Response(choices)
 
 
+class DateWeekInfoView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        date = request.query_params['date']
+        parse_date = datetime.datetime.strptime(date, "%d-%m-%Y").date()
+        response = {}
+        week_number = parse_date.isocalendar().week
+        weekday = parse_date.weekday()
+
+        if week_number % 2 == 0:
+            response['week'] = 'Знаменатель'
+        else:
+            response['week'] = 'Числитель'
+        if weekday == 0:
+            response['weekday'] = 'Понедельник'
+        if weekday == 1:
+            response['weekday'] = 'Вторник'
+        if weekday == 2:
+            response['weekday'] = 'Среда'
+        if weekday == 3:
+            response['weekday'] = 'Четверг'
+        if weekday == 4:
+            response['weekday'] = 'Пятница'
+        if weekday == 5:
+            response['weekday'] = 'Суббота'
+
+        return Response(response)
+
+
 class UserScheduleViewSet(RetrieveModelMixin, GenericViewSet):
     permission_classes = [IsAuthenticated]
     queryset = Schedule.objects.all()
@@ -84,34 +115,35 @@ class UserScheduleViewSet(RetrieveModelMixin, GenericViewSet):
         return Response(instance, status=HTTP_200_OK)
 
     def get_object(self):
+        week = self.request.query_params.get('week')
+        day = self.request.query_params.get('day')
+        user_role = None
+        user = None
+
         try:
-            user = self.request.user
+            base_user = self.request.user
         except Exception:
             raise NotFound('user not found')
         err_count = 0
+
         try:
-            student = user.student
-            course_group = student.course_group
-
-            try:
-                schedule = Schedule.objects.get(course_group_id=course_group)
-                file = json.load(schedule.schedule_file)
-                return file
-            except Exception:
-                raise NotFound('course group not found')
-
+            student = base_user.student
+            user_role = 'student'
+            user = student
         except Exception:
             err_count += 1
 
         try:
-            professor = user.professor
-            professor_schedule = get_professor_schedule(professor)
-            return professor_schedule
+            professor = base_user.professor
+            user_role = 'professor'
+            user = professor
         except Exception:
             err_count += 1
 
         if err_count >= 2:
             raise Exception('user dont load')
+
+        return get_user_schedule(user, user_role, week, day)
 
 
 # id - ignored
