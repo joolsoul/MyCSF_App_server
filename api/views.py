@@ -101,6 +101,8 @@ class DateWeekInfoView(APIView):
             response['weekday'] = 'Пятница'
         if weekday == 5:
             response['weekday'] = 'Суббота'
+        if weekday == 6:
+            response['weekday'] = 'Воскресенье'
 
         return Response(response)
 
