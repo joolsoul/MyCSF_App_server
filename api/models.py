@@ -295,12 +295,37 @@ class Event(models.Model):
         max_length=100,
         blank=True
     )
-    description = models.CharField(
+    description = models.TextField(
         _('event description'),
         max_length=800,
         blank=True
     )
-    event_datetime = models.DateTimeField(_('event datetime'), default=timezone.now)
+
+    event_start_datetime = models.DateTimeField(_('event start'), default=timezone.now)
+    event_end_datetime = models.DateTimeField(_('event end'), default=timezone.now)
+    is_full_day = models.BooleanField(
+        _('is full day'),
+        default=True,
+    )
+    course_groups = models.ManyToManyField(
+        "CourseGroup",
+        blank=True,
+        default=None,
+        symmetrical=False,
+        related_name="group_events"
+    )
+
+    EVENT_TYPES_RU = [
+        ('i', "Информация"),
+        ('e', "Экзамен"),
+        ('a', "Аттестация"),
+        ('h', "Праздник"),
+    ]
+
+    e_type = models.CharField(_("event type"), max_length=1, choices=EVENT_TYPES_RU, blank=False, null=False)
+
+    def __str__(self):
+        return self.title
 
 
 class Publication(models.Model):

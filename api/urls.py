@@ -2,7 +2,7 @@ from django.urls import path, include
 from rest_framework import routers
 
 from api.views import CourseGroupApiList, UserShortInfoViewSet, UserScheduleViewSet, UserAvatarUpdateView, \
-    MapChoicesView, DateWeekInfoView
+    MapChoicesView, DateWeekInfoView, EventApiView
 # from api.views import ProfessorApiList
 from api.views import StudentViewSet, ProfessorViewSet, MapApiView
 
@@ -11,6 +11,7 @@ router.register('auth/users/students', StudentViewSet)
 router.register('auth/users/professors', ProfessorViewSet)
 router.register('auth/users/shortinfo', UserShortInfoViewSet)
 router.register('schedule', UserScheduleViewSet)
+router.register('event', EventApiView)
 router.register('map', MapApiView)
 router.register('users/avatars', UserAvatarUpdateView)
 
