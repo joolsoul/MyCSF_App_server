@@ -235,15 +235,17 @@ class Map(models.Model):
 
     BUILDINGS = [
         ('m', "main building"),
-        ('ex', "extension building")
+        ('ex1a', "extension building 1A"),
+        ('ex1b', "extension building 1B"),
     ]
 
     BUILDINGS_RU = [
         ('m', "Главный корпус"),
-        ('ex', "Пристройка")
+        ('ex1a', "Пристройка 1А"),
+        ('ex1b', "Пристройка 1Б"),
     ]
 
-    building = models.CharField(_('building'), max_length=2, choices=BUILDINGS, blank=True)
+    building = models.CharField(_('building'), max_length=4, choices=BUILDINGS, blank=True)
     building_level = models.IntegerField(_('level of building'))
     map_file = models.FileField(upload_to=get_map_path,
                                 validators=[
@@ -316,4 +318,5 @@ class Publication(models.Model):
     event = models.ForeignKey("Event", on_delete=models.DO_NOTHING, related_name='publication', blank=True,
                               null=True)
 
-#     //TODO: добавить изображение публикации?
+    images = models.CharField(_('publication images'),
+                              blank=True, null=True)
