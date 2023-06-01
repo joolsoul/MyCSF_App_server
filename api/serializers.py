@@ -4,7 +4,7 @@ from djoser.serializers import UserCreateSerializer
 from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer
 
-from api.models import User, Student, Schedule, Publication
+from api.models import User, Student, Schedule, Publication, Event
 from api.models import Professor, Map
 from api.models import CourseGroup
 from rest_framework.exceptions import ParseError
@@ -25,10 +25,18 @@ class MapSerializer(ModelSerializer):
         fields = '__all__'
 
 
-class ProfessorSerializer(ModelSerializer):
+class EventSerializer(ModelSerializer):
     class Meta:
-        model = Professor
-        fields = '__all__'
+        model = Event
+        fields = (
+            "id",
+            "title",
+            "description",
+            "event_start_datetime",
+            "event_end_datetime",
+            "is_full_day",
+            "e_type"
+        )
 
 
 class CourseGroupSerializer(ModelSerializer):

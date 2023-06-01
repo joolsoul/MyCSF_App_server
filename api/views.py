@@ -3,6 +3,7 @@ import json
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.tokens import default_token_generator
+from django.db.models import Q
 from djoser import signals, utils
 from djoser.conf import settings
 from rest_framework import generics, status
@@ -15,43 +16,42 @@ from rest_framework.status import HTTP_200_OK
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
 
-from api.models import Student, Professor, CourseGroup, Schedule, Map
+from api.models import Student, Professor, CourseGroup, Schedule, Map, Event
 from api.permissions import AdminOrReadOnlyPermission, IsOwnerOrAdmin
 from api.searchfilters import BuildingSearchFilter
-from api.serializers import CourseGroupSerializer, MyUserCreateSerializer, SimpleUserSerializer
-from api.serializers import ProfessorSerializer, ScheduleSerializer, MapSerializer
-from api.serializers import StudentSerializer, StudentCreateSerializer, ProfessorCreateSerializer
+from api.serializers import CourseGroupSerializer, MyUserCreateSerializer, SimpleUserSerializer, EventSerializer
+from api.serializers import ScheduleSerializer, MapSerializer
+from api.serializers import StudentCreateSerializer, ProfessorCreateSerializer
 from api.schedule_utilities import get_professor_schedule, get_user_schedule
 
 User = get_user_model()
-
-
-# Create your views here.
-
-# class ScheduleApiList(generics.ListAPIView):
-#     queryset = Schedule.objects.all()
-#     serializer_class = ScheduleSerializer
-#
-#
-# class ScheduleApi(generics.RetrieveAPIView):
-#     queryset = Schedule.objects.all()
-#     serializer_class = ScheduleSerializer
-
-
-# class StudentApiList(generics.ListCreateAPIView):
-#     queryset = Student.objects.all()
-#     serializer_class = StudentSerializer
-#
-#
-# class ProfessorApiList(generics.ListCreateAPIView):
-#     queryset = Professor.objects.all()
-#     serializer_class = ProfessorSerializer
 
 
 class CourseGroupApiList(generics.ListCreateAPIView):
     queryset = CourseGroup.objects.all()
     serializer_class = CourseGroupSerializer
     permission_classes = [AdminOrReadOnlyPermission]
+
+
+class EventApiView(ModelViewSet):
+    permission_classes = [AdminOrReadOnlyPermission]
+    queryset = Event.objects.all()
+    serializer_class = EventSerializer
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        if not self.request.user.is_authenticated:
+            queryset = queryset.filter(course_groups=None)
+        elif self.request.user.is_superuser:
+            pass
+        else:
+            try:
+                student = self.request.user.student
+                student_course_group = student.course_group
+                queryset = queryset.filter(Q(course_groups=None) | Q(course_groups=student_course_group))
+            except Exception as e:
+                queryset = queryset.filter(course_groups=None)
+        return queryset
 
 
 class MapApiView(ModelViewSet):
@@ -166,45 +166,6 @@ class UserShortInfoViewSet(RetrieveModelMixin, GenericViewSet):
             return super().get_object()
 
 
-# class StudentViewSet(UserViewSet):
-#     # serializer_class = StudentCreateSerializer
-#
-#     def get_serializer_class(self):
-#         if self.action == "create":
-#             return StudentCreateSerializer
-#         elif self.action == "destroy" or (
-#             self.action == "me" and self.request and self.request.method == "DELETE"
-#         ):
-#             return settings.SERIALIZERS.user_delete
-#         elif self.action == "activation":
-#             return settings.SERIALIZERS.activation
-#         elif self.action == "resend_activation":
-#             return settings.SERIALIZERS.password_reset
-#         elif self.action == "reset_password":
-#             return settings.SERIALIZERS.password_reset
-#         elif self.action == "reset_password_confirm":
-#             if settings.PASSWORD_RESET_CONFIRM_RETYPE:
-#                 return settings.SERIALIZERS.password_reset_confirm_retype
-#             return settings.SERIALIZERS.password_reset_confirm
-#         elif self.action == "set_password":
-#             if settings.SET_PASSWORD_RETYPE:
-#                 return settings.SERIALIZERS.set_password_retype
-#             return settings.SERIALIZERS.set_password
-#         elif self.action == "set_username":
-#             if settings.SET_USERNAME_RETYPE:
-#                 return settings.SERIALIZERS.set_username_retype
-#             return settings.SERIALIZERS.set_username
-#         elif self.action == "reset_username":
-#             return settings.SERIALIZERS.username_reset
-#         elif self.action == "reset_username_confirm":
-#             if settings.USERNAME_RESET_CONFIRM_RETYPE:
-#                 return settings.SERIALIZERS.username_reset_confirm_retype
-#             return settings.SERIALIZERS.username_reset_confirm
-#         elif self.action == "me":
-#             return settings.SERIALIZERS.current_user
-#
-#         return self.serializer_class
-
 class UserAvatarUpdateView(UpdateModelMixin, GenericViewSet):
     queryset = User.objects.all()
     serializer_class = SimpleUserSerializer
@@ -261,24 +222,6 @@ class ProfessorViewSet(ModelViewSet):
     def get_permissions(self):
         if self.action == "create":
             self.permission_classes = settings.PERMISSIONS.user_create
-        # elif self.action == "activation":
-        #     self.permission_classes = settings.PERMISSIONS.activation
-        # elif self.action == "resend_activation":
-        #     self.permission_classes = settings.PERMISSIONS.password_reset
-        # elif self.action == "list":
-        #     self.permission_classes = settings.PERMISSIONS.user_list
-        # elif self.action == "reset_password":
-        #     self.permission_classes = settings.PERMISSIONS.password_reset
-        # elif self.action == "reset_password_confirm":
-        #     self.permission_classes = settings.PERMISSIONS.password_reset_confirm
-        # elif self.action == "set_password":
-        #     self.permission_classes = settings.PERMISSIONS.set_password
-        # elif self.action == "set_username":
-        #     self.permission_classes = settings.PERMISSIONS.set_username
-        # elif self.action == "reset_username":
-        #     self.permission_classes = settings.PERMISSIONS.username_reset
-        # elif self.action == "reset_username_confirm":
-        #     self.permission_classes = settings.PERMISSIONS.username_reset_confirm
         elif self.action == "destroy" or (
                 self.action == "me" and self.request and self.request.method == "DELETE"
         ):
@@ -292,30 +235,6 @@ class ProfessorViewSet(ModelViewSet):
                 self.action == "me" and self.request and self.request.method == "DELETE"
         ):
             return settings.SERIALIZERS.user_delete
-        # elif self.action == "activation":
-        #     return settings.SERIALIZERS.activation
-        # elif self.action == "resend_activation":
-        #     return settings.SERIALIZERS.password_reset
-        # elif self.action == "reset_password":
-        #     return settings.SERIALIZERS.password_reset
-        # elif self.action == "reset_password_confirm":
-        #     if settings.PASSWORD_RESET_CONFIRM_RETYPE:
-        #         return settings.SERIALIZERS.password_reset_confirm_retype
-        #     return settings.SERIALIZERS.password_reset_confirm
-        # elif self.action == "set_password":
-        #     if settings.SET_PASSWORD_RETYPE:
-        #         return settings.SERIALIZERS.set_password_retype
-        #     return settings.SERIALIZERS.set_password
-        # elif self.action == "set_username":
-        #     if settings.SET_USERNAME_RETYPE:
-        #         return settings.SERIALIZERS.set_username_retype
-        #     return settings.SERIALIZERS.set_username
-        # elif self.action == "reset_username":
-        #     return settings.SERIALIZERS.username_reset
-        # elif self.action == "reset_username_confirm":
-        #     if settings.USERNAME_RESET_CONFIRM_RETYPE:
-        #         return settings.SERIALIZERS.username_reset_confirm_retype
-        #     return settings.SERIALIZERS.username_reset_confirm
         elif self.action == "me":
             return settings.SERIALIZERS.current_user
 
@@ -330,24 +249,12 @@ class ProfessorViewSet(ModelViewSet):
             sender=self.__class__, user=user, request=self.request
         )
 
-        # context = {"user": user}
-        # to = [get_user_email(user)]
-        # if settings.SEND_ACTIVATION_EMAIL:
-        #     settings.EMAIL.activation(self.request, context).send(to)
-        # elif settings.SEND_CONFIRMATION_EMAIL:
-        #     settings.EMAIL.confirmation(self.request, context).send(to)
-
     def perform_update(self, serializer, *args, **kwargs):
         super().perform_update(serializer)
         user = serializer.instance
         signals.user_updated.send(
             sender=self.__class__, user=user, request=self.request
         )
-
-        # if settings.SEND_ACTIVATION_EMAIL and not user.is_active:
-        #     context = {"user": user}
-        #     to = [get_user_email(user)]
-        #     settings.EMAIL.activation(self.request, context).send(to)
 
     def destroy(self, request, *args, **kwargs):
         instance = self.get_object()
@@ -398,24 +305,6 @@ class StudentViewSet(ModelViewSet):
     def get_permissions(self):
         if self.action == "create":
             self.permission_classes = settings.PERMISSIONS.user_create
-        # elif self.action == "activation":
-        #     self.permission_classes = settings.PERMISSIONS.activation
-        # elif self.action == "resend_activation":
-        #     self.permission_classes = settings.PERMISSIONS.password_reset
-        # elif self.action == "list":
-        #     self.permission_classes = settings.PERMISSIONS.user_list
-        # elif self.action == "reset_password":
-        #     self.permission_classes = settings.PERMISSIONS.password_reset
-        # elif self.action == "reset_password_confirm":
-        #     self.permission_classes = settings.PERMISSIONS.password_reset_confirm
-        # elif self.action == "set_password":
-        #     self.permission_classes = settings.PERMISSIONS.set_password
-        # elif self.action == "set_username":
-        #     self.permission_classes = settings.PERMISSIONS.set_username
-        # elif self.action == "reset_username":
-        #     self.permission_classes = settings.PERMISSIONS.username_reset
-        # elif self.action == "reset_username_confirm":
-        #     self.permission_classes = settings.PERMISSIONS.username_reset_confirm
         elif self.action == "destroy" or (
                 self.action == "me" and self.request and self.request.method == "DELETE"
         ):
@@ -429,30 +318,6 @@ class StudentViewSet(ModelViewSet):
                 self.action == "me" and self.request and self.request.method == "DELETE"
         ):
             return settings.SERIALIZERS.user_delete
-        # elif self.action == "activation":
-        #     return settings.SERIALIZERS.activation
-        # elif self.action == "resend_activation":
-        #     return settings.SERIALIZERS.password_reset
-        # elif self.action == "reset_password":
-        #     return settings.SERIALIZERS.password_reset
-        # elif self.action == "reset_password_confirm":
-        #     if settings.PASSWORD_RESET_CONFIRM_RETYPE:
-        #         return settings.SERIALIZERS.password_reset_confirm_retype
-        #     return settings.SERIALIZERS.password_reset_confirm
-        # elif self.action == "set_password":
-        #     if settings.SET_PASSWORD_RETYPE:
-        #         return settings.SERIALIZERS.set_password_retype
-        #     return settings.SERIALIZERS.set_password
-        # elif self.action == "set_username":
-        #     if settings.SET_USERNAME_RETYPE:
-        #         return settings.SERIALIZERS.set_username_retype
-        #     return settings.SERIALIZERS.set_username
-        # elif self.action == "reset_username":
-        #     return settings.SERIALIZERS.username_reset
-        # elif self.action == "reset_username_confirm":
-        #     if settings.USERNAME_RESET_CONFIRM_RETYPE:
-        #         return settings.SERIALIZERS.username_reset_confirm_retype
-        #     return settings.SERIALIZERS.username_reset_confirm
         elif self.action == "me":
             return settings.SERIALIZERS.current_user
 
@@ -467,24 +332,12 @@ class StudentViewSet(ModelViewSet):
             sender=self.__class__, user=user, request=self.request
         )
 
-        # context = {"user": user}
-        # to = [get_user_email(user)]
-        # if settings.SEND_ACTIVATION_EMAIL:
-        #     settings.EMAIL.activation(self.request, context).send(to)
-        # elif settings.SEND_CONFIRMATION_EMAIL:
-        #     settings.EMAIL.confirmation(self.request, context).send(to)
-
     def perform_update(self, serializer, *args, **kwargs):
         super().perform_update(serializer)
         user = serializer.instance
         signals.user_updated.send(
             sender=self.__class__, user=user, request=self.request
         )
-
-        # if settings.SEND_ACTIVATION_EMAIL and not user.is_active:
-        #     context = {"user": user}
-        #     to = [get_user_email(user)]
-        #     settings.EMAIL.activation(self.request, context).send(to)
 
     def destroy(self, request, *args, **kwargs):
         instance = self.get_object()
