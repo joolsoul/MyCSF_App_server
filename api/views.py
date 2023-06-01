@@ -166,6 +166,45 @@ class UserShortInfoViewSet(RetrieveModelMixin, GenericViewSet):
             return super().get_object()
 
 
+# class StudentViewSet(UserViewSet):
+#     # serializer_class = StudentCreateSerializer
+#
+#     def get_serializer_class(self):
+#         if self.action == "create":
+#             return StudentCreateSerializer
+#         elif self.action == "destroy" or (
+#             self.action == "me" and self.request and self.request.method == "DELETE"
+#         ):
+#             return settings.SERIALIZERS.user_delete
+#         elif self.action == "activation":
+#             return settings.SERIALIZERS.activation
+#         elif self.action == "resend_activation":
+#             return settings.SERIALIZERS.password_reset
+#         elif self.action == "reset_password":
+#             return settings.SERIALIZERS.password_reset
+#         elif self.action == "reset_password_confirm":
+#             if settings.PASSWORD_RESET_CONFIRM_RETYPE:
+#                 return settings.SERIALIZERS.password_reset_confirm_retype
+#             return settings.SERIALIZERS.password_reset_confirm
+#         elif self.action == "set_password":
+#             if settings.SET_PASSWORD_RETYPE:
+#                 return settings.SERIALIZERS.set_password_retype
+#             return settings.SERIALIZERS.set_password
+#         elif self.action == "set_username":
+#             if settings.SET_USERNAME_RETYPE:
+#                 return settings.SERIALIZERS.set_username_retype
+#             return settings.SERIALIZERS.set_username
+#         elif self.action == "reset_username":
+#             return settings.SERIALIZERS.username_reset
+#         elif self.action == "reset_username_confirm":
+#             if settings.USERNAME_RESET_CONFIRM_RETYPE:
+#                 return settings.SERIALIZERS.username_reset_confirm_retype
+#             return settings.SERIALIZERS.username_reset_confirm
+#         elif self.action == "me":
+#             return settings.SERIALIZERS.current_user
+#
+#         return self.serializer_class
+
 class UserAvatarUpdateView(UpdateModelMixin, GenericViewSet):
     queryset = User.objects.all()
     serializer_class = SimpleUserSerializer
@@ -222,6 +261,24 @@ class ProfessorViewSet(ModelViewSet):
     def get_permissions(self):
         if self.action == "create":
             self.permission_classes = settings.PERMISSIONS.user_create
+        # elif self.action == "activation":
+        #     self.permission_classes = settings.PERMISSIONS.activation
+        # elif self.action == "resend_activation":
+        #     self.permission_classes = settings.PERMISSIONS.password_reset
+        # elif self.action == "list":
+        #     self.permission_classes = settings.PERMISSIONS.user_list
+        # elif self.action == "reset_password":
+        #     self.permission_classes = settings.PERMISSIONS.password_reset
+        # elif self.action == "reset_password_confirm":
+        #     self.permission_classes = settings.PERMISSIONS.password_reset_confirm
+        # elif self.action == "set_password":
+        #     self.permission_classes = settings.PERMISSIONS.set_password
+        # elif self.action == "set_username":
+        #     self.permission_classes = settings.PERMISSIONS.set_username
+        # elif self.action == "reset_username":
+        #     self.permission_classes = settings.PERMISSIONS.username_reset
+        # elif self.action == "reset_username_confirm":
+        #     self.permission_classes = settings.PERMISSIONS.username_reset_confirm
         elif self.action == "destroy" or (
                 self.action == "me" and self.request and self.request.method == "DELETE"
         ):
@@ -235,6 +292,30 @@ class ProfessorViewSet(ModelViewSet):
                 self.action == "me" and self.request and self.request.method == "DELETE"
         ):
             return settings.SERIALIZERS.user_delete
+        # elif self.action == "activation":
+        #     return settings.SERIALIZERS.activation
+        # elif self.action == "resend_activation":
+        #     return settings.SERIALIZERS.password_reset
+        # elif self.action == "reset_password":
+        #     return settings.SERIALIZERS.password_reset
+        # elif self.action == "reset_password_confirm":
+        #     if settings.PASSWORD_RESET_CONFIRM_RETYPE:
+        #         return settings.SERIALIZERS.password_reset_confirm_retype
+        #     return settings.SERIALIZERS.password_reset_confirm
+        # elif self.action == "set_password":
+        #     if settings.SET_PASSWORD_RETYPE:
+        #         return settings.SERIALIZERS.set_password_retype
+        #     return settings.SERIALIZERS.set_password
+        # elif self.action == "set_username":
+        #     if settings.SET_USERNAME_RETYPE:
+        #         return settings.SERIALIZERS.set_username_retype
+        #     return settings.SERIALIZERS.set_username
+        # elif self.action == "reset_username":
+        #     return settings.SERIALIZERS.username_reset
+        # elif self.action == "reset_username_confirm":
+        #     if settings.USERNAME_RESET_CONFIRM_RETYPE:
+        #         return settings.SERIALIZERS.username_reset_confirm_retype
+        #     return settings.SERIALIZERS.username_reset_confirm
         elif self.action == "me":
             return settings.SERIALIZERS.current_user
 
@@ -249,12 +330,24 @@ class ProfessorViewSet(ModelViewSet):
             sender=self.__class__, user=user, request=self.request
         )
 
+        # context = {"user": user}
+        # to = [get_user_email(user)]
+        # if settings.SEND_ACTIVATION_EMAIL:
+        #     settings.EMAIL.activation(self.request, context).send(to)
+        # elif settings.SEND_CONFIRMATION_EMAIL:
+        #     settings.EMAIL.confirmation(self.request, context).send(to)
+
     def perform_update(self, serializer, *args, **kwargs):
         super().perform_update(serializer)
         user = serializer.instance
         signals.user_updated.send(
             sender=self.__class__, user=user, request=self.request
         )
+
+        # if settings.SEND_ACTIVATION_EMAIL and not user.is_active:
+        #     context = {"user": user}
+        #     to = [get_user_email(user)]
+        #     settings.EMAIL.activation(self.request, context).send(to)
 
     def destroy(self, request, *args, **kwargs):
         instance = self.get_object()
@@ -305,6 +398,24 @@ class StudentViewSet(ModelViewSet):
     def get_permissions(self):
         if self.action == "create":
             self.permission_classes = settings.PERMISSIONS.user_create
+        # elif self.action == "activation":
+        #     self.permission_classes = settings.PERMISSIONS.activation
+        # elif self.action == "resend_activation":
+        #     self.permission_classes = settings.PERMISSIONS.password_reset
+        # elif self.action == "list":
+        #     self.permission_classes = settings.PERMISSIONS.user_list
+        # elif self.action == "reset_password":
+        #     self.permission_classes = settings.PERMISSIONS.password_reset
+        # elif self.action == "reset_password_confirm":
+        #     self.permission_classes = settings.PERMISSIONS.password_reset_confirm
+        # elif self.action == "set_password":
+        #     self.permission_classes = settings.PERMISSIONS.set_password
+        # elif self.action == "set_username":
+        #     self.permission_classes = settings.PERMISSIONS.set_username
+        # elif self.action == "reset_username":
+        #     self.permission_classes = settings.PERMISSIONS.username_reset
+        # elif self.action == "reset_username_confirm":
+        #     self.permission_classes = settings.PERMISSIONS.username_reset_confirm
         elif self.action == "destroy" or (
                 self.action == "me" and self.request and self.request.method == "DELETE"
         ):
@@ -318,6 +429,30 @@ class StudentViewSet(ModelViewSet):
                 self.action == "me" and self.request and self.request.method == "DELETE"
         ):
             return settings.SERIALIZERS.user_delete
+        # elif self.action == "activation":
+        #     return settings.SERIALIZERS.activation
+        # elif self.action == "resend_activation":
+        #     return settings.SERIALIZERS.password_reset
+        # elif self.action == "reset_password":
+        #     return settings.SERIALIZERS.password_reset
+        # elif self.action == "reset_password_confirm":
+        #     if settings.PASSWORD_RESET_CONFIRM_RETYPE:
+        #         return settings.SERIALIZERS.password_reset_confirm_retype
+        #     return settings.SERIALIZERS.password_reset_confirm
+        # elif self.action == "set_password":
+        #     if settings.SET_PASSWORD_RETYPE:
+        #         return settings.SERIALIZERS.set_password_retype
+        #     return settings.SERIALIZERS.set_password
+        # elif self.action == "set_username":
+        #     if settings.SET_USERNAME_RETYPE:
+        #         return settings.SERIALIZERS.set_username_retype
+        #     return settings.SERIALIZERS.set_username
+        # elif self.action == "reset_username":
+        #     return settings.SERIALIZERS.username_reset
+        # elif self.action == "reset_username_confirm":
+        #     if settings.USERNAME_RESET_CONFIRM_RETYPE:
+        #         return settings.SERIALIZERS.username_reset_confirm_retype
+        #     return settings.SERIALIZERS.username_reset_confirm
         elif self.action == "me":
             return settings.SERIALIZERS.current_user
 
@@ -332,12 +467,24 @@ class StudentViewSet(ModelViewSet):
             sender=self.__class__, user=user, request=self.request
         )
 
+        # context = {"user": user}
+        # to = [get_user_email(user)]
+        # if settings.SEND_ACTIVATION_EMAIL:
+        #     settings.EMAIL.activation(self.request, context).send(to)
+        # elif settings.SEND_CONFIRMATION_EMAIL:
+        #     settings.EMAIL.confirmation(self.request, context).send(to)
+
     def perform_update(self, serializer, *args, **kwargs):
         super().perform_update(serializer)
         user = serializer.instance
         signals.user_updated.send(
             sender=self.__class__, user=user, request=self.request
         )
+
+        # if settings.SEND_ACTIVATION_EMAIL and not user.is_active:
+        #     context = {"user": user}
+        #     to = [get_user_email(user)]
+        #     settings.EMAIL.activation(self.request, context).send(to)
 
     def destroy(self, request, *args, **kwargs):
         instance = self.get_object()
