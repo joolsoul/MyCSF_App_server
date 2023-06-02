@@ -303,18 +303,18 @@ class Event(models.Model):
 
 class Publication(models.Model):
     title = models.CharField(
-        _('publication title'),
+        _('Название публикации'),
         max_length=100,
         blank=True
     )
     body_text = models.CharField(
-        _('publication text'),
-        max_length=800,
+        _('Текст публикации'),
+        max_length=2000,
         blank=True
     )
-    publication_datetime = models.DateTimeField(_('publication datetime'), default=timezone.now)
+    publication_datetime = models.DateTimeField(_('Время публикации'), default=timezone.now)
     event = models.ForeignKey("Event", on_delete=models.DO_NOTHING, related_name='publication', blank=True,
                               null=True)
 
-    images = models.CharField(_('publication images'),
+    image = models.CharField(_('Изображение'),
                               blank=True, null=True)

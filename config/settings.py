@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     #   3-d party apps
     'drf_yasg',
     'rest_framework',
+    'django_crontab',
     #   local apps
     'api'
 ]
@@ -144,6 +145,10 @@ SIMPLE_JWT = {
     'REFRESH_TOKEN_LIFETIME': timedelta(days=10000),
     'AUTH_HEADER_TYPES': ('Bearer',),
 }
+
+CRONJOBS = [
+    ('*/5 * * * *', 'api.news_parser.get_news'),
+]
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

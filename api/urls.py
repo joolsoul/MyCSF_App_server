@@ -2,7 +2,7 @@ from django.urls import path, include
 from rest_framework import routers
 
 from api.views import CourseGroupApiList, UserShortInfoViewSet, UserScheduleViewSet, UserAvatarUpdateView, \
-    MapChoicesView, DateWeekInfoView
+    MapChoicesView, DateWeekInfoView, PublicationApiList
 # from api.views import ProfessorApiList
 from api.views import StudentViewSet, ProfessorViewSet, MapApiView
 
@@ -18,6 +18,7 @@ urlpatterns = [
     # path('student/', StudentApiList.as_view()),
     # path('professor/', ProfessorApiList.as_view()),
     path('courseGroup/', CourseGroupApiList.as_view()),
+    path('publication/', PublicationApiList.as_view()),
     # path('schedule/', ScheduleApiList.as_view()),
     # path('schedule/<int:pk>/', ScheduleApi.as_view()),
     path('map/choices/', MapChoicesView.as_view()),

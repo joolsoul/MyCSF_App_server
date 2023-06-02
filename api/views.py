@@ -15,13 +15,15 @@ from rest_framework.status import HTTP_200_OK
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
 
-from api.models import Student, Professor, CourseGroup, Schedule, Map
+from api.models import Student, Professor, CourseGroup, Schedule, Map, Publication
 from api.permissions import AdminOrReadOnlyPermission, IsOwnerOrAdmin
 from api.searchfilters import BuildingSearchFilter
-from api.serializers import CourseGroupSerializer, MyUserCreateSerializer, SimpleUserSerializer
+from api.serializers import CourseGroupSerializer, MyUserCreateSerializer, SimpleUserSerializer, PublicationCreateSerializer
 from api.serializers import ProfessorSerializer, ScheduleSerializer, MapSerializer
 from api.serializers import StudentSerializer, StudentCreateSerializer, ProfessorCreateSerializer
 from api.schedule_utilities import get_professor_schedule, get_user_schedule
+
+from rest_framework.pagination import LimitOffsetPagination
 
 User = get_user_model()
 
@@ -52,6 +54,13 @@ class CourseGroupApiList(generics.ListCreateAPIView):
     queryset = CourseGroup.objects.all()
     serializer_class = CourseGroupSerializer
     permission_classes = [AdminOrReadOnlyPermission]
+
+
+class PublicationApiList(generics.ListAPIView):
+    queryset = Publication.objects.all()
+    serializer_class = PublicationCreateSerializer
+    permission_classes = [AdminOrReadOnlyPermission]
+    pagination_class = LimitOffsetPagination
 
 
 class MapApiView(ModelViewSet):
