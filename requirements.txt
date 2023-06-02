@@ -8,6 +8,7 @@ coreschema==0.0.4
 cryptography==40.0.2
 defusedxml==0.7.1
 Django==4.2
+django-crontab==0.7.1
 django-phonenumber-field==7.0.2
 django-phonenumbers==1.0.1
 django-templated-mail==1.1.1
@@ -24,6 +25,7 @@ MarkupSafe==2.1.2
 oauthlib==3.2.2
 packaging==23.1
 phonenumbers==8.13.9
+Pillow==9.5.0
 psycopg2-binary==2.9.6
 pycparser==2.21
 PyJWT==2.6.0
