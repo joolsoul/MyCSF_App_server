@@ -25,28 +25,30 @@ def get_news():
     data = response.json()['response']['items']
 
     for post in data:
+        try:
+            validated_data = {'image': [],
+                              'body_text': '',
+                              'title': '',
+                              'publication_datetime': datetime.datetime.fromtimestamp(post['date'])}
 
-        validated_data = {'image': [],
-                          'body_text': '',
-                          'title': '',
-                          'publication_datetime': datetime.datetime.fromtimestamp(post['date'])}
+            if 'copy_history' in post:
+                parent_post = post['copy_history'][0]
+                if parent_post['text'] is None or len(parent_post['text']) == 0:
+                    continue
+                validated_data['body_text'] = parent_post['text'][:2000]
+                validated_data['image'].append(get_photo(parent_post['attachments']))
 
-        if 'copy_history' in post:
-            parent_post = post['copy_history'][0]
-            if parent_post['text'] is None or len(parent_post['text']) == 0:
-                continue
-            validated_data['body_text'] = parent_post['text']
-            validated_data['image'].append(get_photo(parent_post['attachments']))
+            else:
+                if post['text'] is None or len(post['text']) == 0:
+                    continue
+                validated_data['body_text'] = post['text'][:2000]
+                validated_data['image'].append(get_photo(post['attachments']))
 
-        else:
-            if post['text'] is None or len(post['text']) == 0:
-                continue
-            validated_data['body_text'] = post['text']
-            validated_data['image'].append(get_photo(post['attachments']))
+            validated_data['title'] = " ".join(validated_data['body_text'].split()[:4])
 
-        validated_data['title'] = " ".join(validated_data['body_text'].split()[:4])
-
-        PublicationCreateSerializer().create(validated_data)
+            PublicationCreateSerializer().create(validated_data)
+        except Exception as e:
+            print(f"CRON ERR: {e}")
 
 
 def get_photo(attachments: list):
@@ -59,7 +61,6 @@ def get_photo(attachments: list):
 
     if len(photo) != 0:
         return photo[0]
-
 
 
 if __name__ == '__main__':

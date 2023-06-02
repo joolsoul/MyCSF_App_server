@@ -334,7 +334,7 @@ class Publication(models.Model):
         max_length=100,
         blank=True
     )
-    body_text = models.CharField(
+    body_text = models.TextField(
         _('Текст публикации'),
         max_length=2000,
         blank=True

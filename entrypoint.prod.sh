@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ "$DATABASE" = "postgres" ]
+if [ "$CRON" != "cron" ] && [ "$DATABASE" = "postgres" ]
 then
     echo "Waiting for postgres..."
 
@@ -15,6 +15,10 @@ then
 	python manage.py createsuperuser --username=ns --email=merzlyakov02@gmail.com --noinput
 fi
 
+if [ "$CRON" = "cron" ]; then
+  echo "hello from cron!"
+  python manage.py crontab add
+fi
 
 
 exec "$@"
