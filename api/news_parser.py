@@ -8,7 +8,7 @@ import datetime
 import requests
 
 from api.models import Publication
-from api.serializers import PublicationCreateSerializer
+from api.serializers import PublicationSerializer
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -52,7 +52,7 @@ def get_news():
 
             if latest_publication is None or validated_data['publication_datetime'].timestamp() > \
                     latest_publication.publication_datetime.timestamp():
-                PublicationCreateSerializer().create(validated_data)
+                PublicationSerializer().create(validated_data)
 
         except Exception as e:
             print(f"CRON ERR: {e}")

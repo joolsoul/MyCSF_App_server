@@ -78,27 +78,32 @@ class SimpleUserSerializer(serializers.ModelSerializer):
     #     return super().update(instance, validated_data)
 
 
-class PublicationCreateSerializer(UserCreateSerializer):
-    title = serializers.CharField(max_length=100)
-    body_text = serializers.CharField(max_length=800)
-    publication_datetime = serializers.DateTimeField()
-    image = serializers.CharField()
+# class PublicationCreateSerializer(UserCreateSerializer):
+#     title = serializers.CharField(max_length=100)
+#     body_text = serializers.CharField(max_length=800)
+#     publication_datetime = serializers.DateTimeField()
+#     image = serializers.CharField()
+#
+#     class Meta:
+#         model = Publication
+#         fields = ('title',
+#                   'body_text',
+#                   'publication_datetime',
+#                   'image'
+#                   )
+#
+#     def create(self, validated_data):
+#         publication = Publication.objects.create(title=validated_data['title'],
+#                                                  body_text=validated_data['body_text'],
+#                                                  publication_datetime=validated_data['publication_datetime'],
+#                                                  image=validated_data['image'])
+#         publication.save()
+#         return publication
 
+class PublicationSerializer(ModelSerializer):
     class Meta:
         model = Publication
-        fields = ('title',
-                  'body_text',
-                  'publication_datetime',
-                  'image'
-                  )
-
-    def create(self, validated_data):
-        publication = Publication.objects.create(title=validated_data['title'],
-                                                 body_text=validated_data['body_text'],
-                                                 publication_datetime=validated_data['publication_datetime'],
-                                                 image=validated_data['image'])
-        publication.save()
-        return publication
+        fields = '__all__'
 
 
 class MyUserCreateSerializer(UserCreateSerializer):

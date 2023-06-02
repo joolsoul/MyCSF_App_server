@@ -19,7 +19,7 @@ from api.models import Student, Professor, CourseGroup, Schedule, Map, Event, Pu
 from api.permissions import AdminOrReadOnlyPermission, IsOwnerOrAdmin
 from api.schedule_utilities import get_user_schedule
 from api.searchfilters import BuildingSearchFilter
-from api.serializers import CourseGroupSerializer, MyUserCreateSerializer, SimpleUserSerializer, EventSerializer, PublicationCreateSerializer
+from api.serializers import CourseGroupSerializer, MyUserCreateSerializer, SimpleUserSerializer, EventSerializer, PublicationSerializer
 from api.serializers import ScheduleSerializer, MapSerializer
 from api.serializers import StudentCreateSerializer, ProfessorCreateSerializer
 
@@ -57,7 +57,7 @@ class EventApiView(ModelViewSet):
 
 class PublicationApiList(generics.ListAPIView):
     queryset = Publication.objects.all()
-    serializer_class = PublicationCreateSerializer
+    serializer_class = PublicationSerializer
     permission_classes = [AdminOrReadOnlyPermission]
     pagination_class = LimitOffsetPagination
 
