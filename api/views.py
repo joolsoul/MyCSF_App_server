@@ -61,6 +61,11 @@ class PublicationApiList(generics.ListAPIView):
     permission_classes = [AdminOrReadOnlyPermission]
     pagination_class = LimitOffsetPagination
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        queryset = queryset.order_by('-publication_datetime')
+        return queryset
+
 
 class MapApiView(ModelViewSet):
     permission_classes = [AdminOrReadOnlyPermission]
