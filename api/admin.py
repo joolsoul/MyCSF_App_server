@@ -2,7 +2,6 @@ from django.contrib import admin
 from django.contrib.admin import ModelAdmin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import Group
-from django.forms import ModelForm
 from django.utils.translation import gettext_lazy as _
 
 from .models import User, Map, Schedule, CourseGroup, Publication, Student, Professor, Event

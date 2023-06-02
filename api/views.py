@@ -1,28 +1,29 @@
 import datetime
-import json
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.tokens import default_token_generator
-from django.db.models import Q
 from djoser import signals, utils
 from djoser.conf import settings
+from django.db.models import Q
 from rest_framework import generics, status
 from rest_framework.decorators import action
 from rest_framework.exceptions import NotFound
-from rest_framework.mixins import RetrieveModelMixin, UpdateModelMixin, CreateModelMixin
+from rest_framework.mixins import RetrieveModelMixin, UpdateModelMixin
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
 
-from api.models import Student, Professor, CourseGroup, Schedule, Map, Event
+from api.models import Student, Professor, CourseGroup, Schedule, Map, Event, Publication
 from api.permissions import AdminOrReadOnlyPermission, IsOwnerOrAdmin
+from api.schedule_utilities import get_user_schedule
 from api.searchfilters import BuildingSearchFilter
-from api.serializers import CourseGroupSerializer, MyUserCreateSerializer, SimpleUserSerializer, EventSerializer
+from api.serializers import CourseGroupSerializer, MyUserCreateSerializer, SimpleUserSerializer, EventSerializer, PublicationCreateSerializer
 from api.serializers import ScheduleSerializer, MapSerializer
 from api.serializers import StudentCreateSerializer, ProfessorCreateSerializer
-from api.schedule_utilities import get_professor_schedule, get_user_schedule
+
+from rest_framework.pagination import LimitOffsetPagination
 
 User = get_user_model()
 
@@ -52,6 +53,13 @@ class EventApiView(ModelViewSet):
             except Exception as e:
                 queryset = queryset.filter(course_groups=None)
         return queryset
+
+
+class PublicationApiList(generics.ListAPIView):
+    queryset = Publication.objects.all()
+    serializer_class = PublicationCreateSerializer
+    permission_classes = [AdminOrReadOnlyPermission]
+    pagination_class = LimitOffsetPagination
 
 
 class MapApiView(ModelViewSet):
