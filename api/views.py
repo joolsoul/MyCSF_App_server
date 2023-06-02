@@ -1,59 +1,58 @@
 import datetime
-import json
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.tokens import default_token_generator
 from djoser import signals, utils
 from djoser.conf import settings
+from django.db.models import Q
 from rest_framework import generics, status
 from rest_framework.decorators import action
 from rest_framework.exceptions import NotFound
-from rest_framework.mixins import RetrieveModelMixin, UpdateModelMixin, CreateModelMixin
+from rest_framework.mixins import RetrieveModelMixin, UpdateModelMixin
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
 
-from api.models import Student, Professor, CourseGroup, Schedule, Map, Publication
+from api.models import Student, Professor, CourseGroup, Schedule, Map, Event, Publication
 from api.permissions import AdminOrReadOnlyPermission, IsOwnerOrAdmin
+from api.schedule_utilities import get_user_schedule
 from api.searchfilters import BuildingSearchFilter
-from api.serializers import CourseGroupSerializer, MyUserCreateSerializer, SimpleUserSerializer, PublicationCreateSerializer
-from api.serializers import ProfessorSerializer, ScheduleSerializer, MapSerializer
-from api.serializers import StudentSerializer, StudentCreateSerializer, ProfessorCreateSerializer
-from api.schedule_utilities import get_professor_schedule, get_user_schedule
+from api.serializers import CourseGroupSerializer, MyUserCreateSerializer, SimpleUserSerializer, EventSerializer, PublicationCreateSerializer
+from api.serializers import ScheduleSerializer, MapSerializer
+from api.serializers import StudentCreateSerializer, ProfessorCreateSerializer
 
 from rest_framework.pagination import LimitOffsetPagination
 
 User = get_user_model()
 
 
-# Create your views here.
-
-# class ScheduleApiList(generics.ListAPIView):
-#     queryset = Schedule.objects.all()
-#     serializer_class = ScheduleSerializer
-#
-#
-# class ScheduleApi(generics.RetrieveAPIView):
-#     queryset = Schedule.objects.all()
-#     serializer_class = ScheduleSerializer
-
-
-# class StudentApiList(generics.ListCreateAPIView):
-#     queryset = Student.objects.all()
-#     serializer_class = StudentSerializer
-#
-#
-# class ProfessorApiList(generics.ListCreateAPIView):
-#     queryset = Professor.objects.all()
-#     serializer_class = ProfessorSerializer
-
-
 class CourseGroupApiList(generics.ListCreateAPIView):
     queryset = CourseGroup.objects.all()
     serializer_class = CourseGroupSerializer
     permission_classes = [AdminOrReadOnlyPermission]
+
+
+class EventApiView(ModelViewSet):
+    permission_classes = [AdminOrReadOnlyPermission]
+    queryset = Event.objects.all()
+    serializer_class = EventSerializer
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        if not self.request.user.is_authenticated:
+            queryset = queryset.filter(course_groups=None)
+        elif self.request.user.is_superuser:
+            pass
+        else:
+            try:
+                student = self.request.user.student
+                student_course_group = student.course_group
+                queryset = queryset.filter(Q(course_groups=None) | Q(course_groups=student_course_group))
+            except Exception as e:
+                queryset = queryset.filter(course_groups=None)
+        return queryset
 
 
 class PublicationApiList(generics.ListAPIView):
@@ -110,6 +109,8 @@ class DateWeekInfoView(APIView):
             response['weekday'] = 'Пятница'
         if weekday == 5:
             response['weekday'] = 'Суббота'
+        if weekday == 6:
+            response['weekday'] = 'Воскресенье'
 
         return Response(response)
 

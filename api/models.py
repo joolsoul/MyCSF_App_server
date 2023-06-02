@@ -235,15 +235,17 @@ class Map(models.Model):
 
     BUILDINGS = [
         ('m', "main building"),
-        ('ex', "extension building")
+        ('ex1a', "extension building 1A"),
+        ('ex1b', "extension building 1B"),
     ]
 
     BUILDINGS_RU = [
         ('m', "Главный корпус"),
-        ('ex', "Пристройка")
+        ('ex1a', "Пристройка 1А"),
+        ('ex1b', "Пристройка 1Б"),
     ]
 
-    building = models.CharField(_('building'), max_length=2, choices=BUILDINGS, blank=True)
+    building = models.CharField(_('building'), max_length=4, choices=BUILDINGS, blank=True)
     building_level = models.IntegerField(_('level of building'))
     map_file = models.FileField(upload_to=get_map_path,
                                 validators=[
@@ -293,12 +295,37 @@ class Event(models.Model):
         max_length=100,
         blank=True
     )
-    description = models.CharField(
+    description = models.TextField(
         _('event description'),
         max_length=800,
         blank=True
     )
-    event_datetime = models.DateTimeField(_('event datetime'), default=timezone.now)
+
+    event_start_datetime = models.DateTimeField(_('event start'), default=timezone.now)
+    event_end_datetime = models.DateTimeField(_('event end'), default=timezone.now)
+    is_full_day = models.BooleanField(
+        _('is full day'),
+        default=True,
+    )
+    course_groups = models.ManyToManyField(
+        "CourseGroup",
+        blank=True,
+        default=None,
+        symmetrical=False,
+        related_name="group_events"
+    )
+
+    EVENT_TYPES_RU = [
+        ('i', "Информация"),
+        ('e', "Экзамен"),
+        ('a', "Аттестация"),
+        ('h', "Праздник"),
+    ]
+
+    e_type = models.CharField(_("event type"), max_length=1, choices=EVENT_TYPES_RU, blank=False, null=False)
+
+    def __str__(self):
+        return self.title
 
 
 class Publication(models.Model):
