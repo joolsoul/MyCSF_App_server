@@ -1,6 +1,5 @@
+import collections
 import os
-
-
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings")
 
 import django
@@ -8,6 +7,7 @@ django.setup()
 import datetime
 import requests
 
+from api.models import Publication
 from api.serializers import PublicationCreateSerializer
 from dotenv import load_dotenv
 
@@ -24,9 +24,9 @@ def get_news():
 
     data = response.json()['response']['items']
 
-    for post in data:
+    for post in sorted(data, key=lambda item: item['date']):
         try:
-            validated_data = {'image': [],
+            validated_data = {'image': None,
                               'body_text': '',
                               'title': '',
                               'publication_datetime': datetime.datetime.fromtimestamp(post['date'])}
@@ -36,17 +36,24 @@ def get_news():
                 if parent_post['text'] is None or len(parent_post['text']) == 0:
                     continue
                 validated_data['body_text'] = parent_post['text'][:2000]
-                validated_data['image'].append(get_photo(parent_post['attachments']))
+                validated_data['image'] = get_photo(parent_post['attachments'])
 
             else:
                 if post['text'] is None or len(post['text']) == 0:
                     continue
                 validated_data['body_text'] = post['text'][:2000]
-                validated_data['image'].append(get_photo(post['attachments']))
+                validated_data['image'] = get_photo(post['attachments'])
 
             validated_data['title'] = " ".join(validated_data['body_text'].split()[:4])
 
-            PublicationCreateSerializer().create(validated_data)
+            latest_publication = None
+            if Publication.objects.count() != 0:
+                latest_publication = Publication.objects.latest('publication_datetime')
+
+            if latest_publication is None or validated_data['publication_datetime'].timestamp() > \
+                    latest_publication.publication_datetime.timestamp():
+                PublicationCreateSerializer().create(validated_data)
+
         except Exception as e:
             print(f"CRON ERR: {e}")
 
