@@ -15,6 +15,7 @@ djangorestframework==3.14.0
 djangorestframework-simplejwt==5.2.2
 djoser==2.2.0
 drf-yasg==1.21.5
+gunicorn==20.1.0
 idna==3.4
 inflection==0.5.1
 itypes==1.2.0
@@ -24,6 +25,7 @@ MarkupSafe==2.1.2
 oauthlib==3.2.2
 packaging==23.1
 phonenumbers==8.13.9
+Pillow==9.5.0
 psycopg2-binary==2.9.6
 pycparser==2.21
 PyJWT==2.6.0
@@ -42,3 +44,4 @@ sqlparse==0.4.3
 tzdata==2023.3
 uritemplate==4.1.1
 urllib3==1.26.15
+whitenoise==6.4.0
