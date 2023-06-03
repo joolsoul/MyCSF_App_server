@@ -33,7 +33,7 @@ def validate_year_of_enrollment(year_of_enrollment):
 
 def validate_record_book_number(record_book_number):
     if record_book_number is None \
-            or len(record_book_number) < 10:
+            or len(record_book_number) != 8:
         raise serializers.ValidationError()
 
 
