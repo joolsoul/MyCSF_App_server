@@ -4,15 +4,15 @@
             {
                 "timeFrom": "9:55",
                 "timeTo": "11:20",
-                "subjectName": "Физкультура",
-                "classroom": "310П",
-                "professor": "Стадная Н.П."
-            },
-            {
-                "timeFrom": "13:25",
-                "timeTo": "15:00",
                 "subjectName": "Философия",
                 "classroom": "310П",
+                "professor": "Зенин К.В."
+            },
+            {
+                "timeFrom": "11:30",
+                "timeTo": "13:05",
+                "subjectName": "Философия",
+                "classroom": "315П",
                 "professor": "Зенин К.В."
             }
         ],
@@ -25,7 +25,7 @@
                 "timeTo": "9:45",
                 "subjectName": "Физкультура",
                 "classroom": "315П",
-                "professor": "Зенин К.В."
+                "professor": "Зуев С.А."
             }
         ],
         "thursday": [
@@ -35,26 +35,24 @@
                 "subjectName": "Матеша",
                 "classroom": "315",
                 "professor": "Сирота Е.А."
-            },
-            {
-                "timeFrom": "11:30",
-                "timeTo": "13:05",
-                "subjectName": "Философия",
-                "classroom": "315П",
-                "professor": "Толстобров А.П."
             }
         ],
         "friday": [
             {
+                "timeFrom": "8:00",
+                "timeTo": "9:45",
+                "subjectName": "Русский",
+                "classroom": "321",
+                "professor": "Зенин К.В."
             }
         ],
         "saturday": [
             {
                 "timeFrom": "8:00",
                 "timeTo": "9:45",
-                "subjectName": "Матеша",
+                "subjectName": "Философия",
                 "classroom": "315П",
-                "professor": "Стадная Надежда Павловна"
+                "professor": "Стадная Н.П."
             }
         ]
     },
@@ -65,7 +63,7 @@
                 "timeTo": "9:45",
                 "subjectName": "Кванты",
                 "classroom": "315П",
-                "professor": "Зенин Кирилл Вячеславович"
+                "professor": "Зенин К.В."
             }
         ],
         "tuesday": [
@@ -83,7 +81,7 @@
                 "timeTo": "9:45",
                 "subjectName": "Философия",
                 "classroom": "315П",
-                "professor": "Зенин К.В."
+                "professor": "Толстобров А.П."
             }
         ],
         "thursday": [
@@ -92,7 +90,7 @@
                 "timeTo": "9:45",
                 "subjectName": "Философия",
                 "classroom": "315П",
-                "professor": "Зуев С.А."
+                "professor": "Зенин К.В."
             }
         ],
         "friday": [
@@ -101,14 +99,7 @@
                 "timeTo": "9:45",
                 "subjectName": "Физра",
                 "classroom": "200",
-                "professor": "Зенин К.В."
-            },
-            {
-                "timeFrom": "11:30",
-                "timeTo": "13:05",
-                "subjectName": "Философия",
-                "classroom": "315П",
-                "professor": "Власов С.В."
+                "professor": "Сирота А.А."
             }
         ],
         "saturday": [
