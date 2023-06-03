@@ -4,15 +4,15 @@
             {
                 "timeFrom": "9:55",
                 "timeTo": "11:20",
-                "subjectName": "Физкультура",
+                "subjectName": "Философия",
                 "classroom": "310П",
-                "professor": "Стадная Н.П."
+                "professor": "Зенин К.В."
             },
             {
                 "timeFrom": "13:25",
                 "timeTo": "15:00",
                 "subjectName": "Философия",
-                "classroom": "310П",
+                "classroom": "380П",
                 "professor": "Зенин К.В."
             }
         ],
@@ -65,7 +65,7 @@
                 "timeTo": "9:45",
                 "subjectName": "Кванты",
                 "classroom": "315П",
-                "professor": "Зенин Кирилл Вячеславович"
+                "professor": "Зенин К.В."
             }
         ],
         "tuesday": [
