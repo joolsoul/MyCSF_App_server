@@ -49,6 +49,8 @@ def get_user_schedule(user, user_role, week=None, day=None):
         if weekday == 5:
             return week_schedule['saturday']
 
+    return file
+
 
 def get_student_schedule(student):
     try:
