@@ -1,0 +1,115 @@
+{
+    "numerator": {
+        "monday": [
+            {
+                "timeFrom": "9:55",
+                "timeTo": "11:20",
+                "subjectName": "Философия",
+                "classroom": "310П",
+                "professor": "Зенин К.В."
+            },
+            {
+                "timeFrom": "11:30",
+                "timeTo": "13:05",
+                "subjectName": "Философия",
+                "classroom": "315П",
+                "professor": "Зенин К.В."
+            }
+        ],
+        "tuesday": [
+            {}
+        ],
+        "wednesday": [
+            {
+                "timeFrom": "8:00",
+                "timeTo": "9:45",
+                "subjectName": "Физкультура",
+                "classroom": "315П",
+                "professor": "Зуев С.А."
+            }
+        ],
+        "thursday": [
+            {
+                "timeFrom": "8:00",
+                "timeTo": "9:45",
+                "subjectName": "Матеша",
+                "classroom": "315",
+                "professor": "Сирота Е.А."
+            }
+        ],
+        "friday": [
+            {
+                "timeFrom": "8:00",
+                "timeTo": "9:45",
+                "subjectName": "Русский",
+                "classroom": "321",
+                "professor": "Зенин К.В."
+            }
+        ],
+        "saturday": [
+            {
+                "timeFrom": "8:00",
+                "timeTo": "9:45",
+                "subjectName": "Философия",
+                "classroom": "315П",
+                "professor": "Стадная Н.П."
+            }
+        ]
+    },
+    "denominator": {
+        "monday": [
+            {
+                "timeFrom": "8:00",
+                "timeTo": "9:45",
+                "subjectName": "Кванты",
+                "classroom": "315П",
+                "professor": "Зенин К.В."
+            }
+        ],
+        "tuesday": [
+            {
+                "timeFrom": "8:00",
+                "timeTo": "9:45",
+                "subjectName": "Кванты",
+                "classroom": "287",
+                "professor": "Зенин К.В."
+            }
+        ],
+        "wednesday": [
+            {
+                "timeFrom": "8:00",
+                "timeTo": "9:45",
+                "subjectName": "Философия",
+                "classroom": "315П",
+                "professor": "Толстобров А.П."
+            }
+        ],
+        "thursday": [
+            {
+                "timeFrom": "8:00",
+                "timeTo": "9:45",
+                "subjectName": "Философия",
+                "classroom": "315П",
+                "professor": "Зенин К.В."
+            }
+        ],
+        "friday": [
+            {
+                "timeFrom": "8:00",
+                "timeTo": "9:45",
+                "subjectName": "Физра",
+                "classroom": "200",
+                "professor": "Сирота А.А."
+            }
+        ],
+        "saturday": [
+            {
+                "timeFrom": "8:00",
+                "timeTo": "9:45",
+                "subjectName": "Философия",
+                "classroom": "315П",
+                "professor": "Зенин К.В."
+            }
+        ]
+    }
+}
