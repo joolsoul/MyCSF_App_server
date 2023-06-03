@@ -53,7 +53,7 @@ class UserAdmin(BaseUserAdmin):
             },
         ),
     )
-    list_display = ("username", "email", "first_name", "second_name", "patronymic", "is_verified")
+    list_display = ("username", "email", "first_name", "second_name", "patronymic", "is_verified", "user_role")
     list_filter = ("is_staff", "is_superuser", "is_active", "groups")
     search_fields = ("username", "first_name", "second_name", "patronymic", "email")
     ordering = ("username",)
@@ -62,10 +62,24 @@ class UserAdmin(BaseUserAdmin):
         "user_permissions",
     )
 
+    def user_role(self, obj):
+        if hasattr(obj, 'student'):
+            return 'Студент'
+        if hasattr(obj, 'professor'):
+            return 'Преподаватель'
+        return None
+
 
 class EventAdmin(ModelAdmin):
     list_display = ("title", "event_start_datetime", "event_end_datetime", "is_full_day", "e_type")
     filter_horizontal = ("course_groups", )
+
+
+class PublicationAdmin(ModelAdmin):
+    list_display = ("title", "publication_datetime")
+    list_filter = ("publication_datetime",)
+    search_fields = ("title", "publication_datetime",)
+
 
 # unreg
 admin.site.unregister(Group)
@@ -73,11 +87,9 @@ admin.site.unregister(Group)
 
 # reg
 admin.site.register(User, UserAdmin)
-admin.site.register(Student)
-admin.site.register(Professor)
 admin.site.register(Map)
 admin.site.register(Schedule)
 admin.site.register(CourseGroup)
 admin.site.register(Event, EventAdmin)
-admin.site.register(Publication)
+admin.site.register(Publication, PublicationAdmin)
 

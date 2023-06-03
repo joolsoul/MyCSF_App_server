@@ -1,4 +1,3 @@
-
 import os
 from datetime import datetime, timedelta
 
@@ -86,7 +85,7 @@ class UserManager(BaseUserManager):
 class User(AbstractBaseUser, PermissionsMixin):
     username_validator = CustomUnicodeUsernameValidator()
     username = models.CharField(
-        _('username'),
+        _('Логин'),
         max_length=50,
         unique=True,
         help_text=_('Required. 50 characters or fewer. Letters, digits and @/./+/-/_ only.'),
@@ -96,30 +95,30 @@ class User(AbstractBaseUser, PermissionsMixin):
         },
     )
     # user_image = models.ImageField() //TODO: image upload
-    first_name = models.CharField(_('first name'), max_length=20, blank=True)
-    second_name = models.CharField(_('second name'), max_length=20, blank=True)
-    patronymic = models.CharField(_('patronymic'), max_length=20, blank=True)
+    first_name = models.CharField(_('Имя'), max_length=20, blank=True)
+    second_name = models.CharField(_('Фамилия'), max_length=20, blank=True)
+    patronymic = models.CharField(_('Отчество'), max_length=20, blank=True)
     email = models.EmailField(
-        _('email address'),
+        _('Адрес электронной почты'),
         unique=True,
         error_messages={
             'unique': _("A user with that email already exists."),
         },
     )
     phone = PhoneNumberField(
-        _('phone number'),
+        _('Номер телефона'),
         unique=True,
         null=True,
         blank=True
     )
     is_staff = models.BooleanField(
-        _('staff status'),
+        _('Стафф'),
         default=False,
         help_text=_(
-            'Is staff account')
+            'Аккаунт работника')
     )
     is_active = models.BooleanField(
-        _('active'),
+        _('Активный'),
         default=True,
         help_text=_(
             'Designates whether this user should be treated as active. '
@@ -138,6 +137,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         return path
 
     avatar = models.ImageField(
+        _('Изображение пользователя'),
         null=True,
         blank=True,
         upload_to=get_image_path,
@@ -178,8 +178,8 @@ def delete_old_avatar(sender, instance, **kwargs):
 
 
 class Student(models.Model):
-    year_of_enrollment = models.CharField(_('year of enrollment'), max_length=4, blank=False)
-    record_book_number = models.CharField(_('number of student record book'), max_length=20, blank=True)
+    year_of_enrollment = models.CharField(_('Год поступления'), max_length=4, blank=False)
+    record_book_number = models.CharField(_('Номер зачетной книжки'), max_length=20, blank=True)
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
         verbose_name=_("User"),
@@ -194,7 +194,7 @@ class Student(models.Model):
 
 
 class Professor(models.Model):
-    department = models.CharField(_('professor department'), max_length=50, blank=False)
+    department = models.CharField(_('Кафедра'), max_length=50, blank=False)
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
         verbose_name=_("User"),
@@ -244,13 +244,21 @@ class Map(models.Model):
         ('ex1a', "Пристройка 1А"),
         ('ex1b', "Пристройка 1Б"),
     ]
+    BUILDINGS_RU_DICT = {
+        'm': "Главный корпус",
+        'ex1a': "Пристройка 1А",
+        'ex1b': "Пристройка 1Б"
+    }
 
-    building = models.CharField(_('building'), max_length=4, choices=BUILDINGS, blank=True)
-    building_level = models.IntegerField(_('level of building'))
+    building = models.CharField(_('Строение'), max_length=4, choices=BUILDINGS, blank=True)
+    building_level = models.IntegerField(_('Этаж строения'))
     map_file = models.FileField(upload_to=get_map_path,
                                 validators=[
                                     FileExtensionValidator(['png'])
                                 ])
+
+    def __str__(self):
+        return f"{self.BUILDINGS_RU_DICT[self.building]} {self.building_level} этаж"
 
 
 class Message(models.Model):
@@ -271,7 +279,6 @@ class Message(models.Model):
 class Schedule(models.Model):
 
     def get_schedule_path(self, filename):
-
         path = f'schedules/' \
                f'{self.course_group.course_number}_' \
                f'{self.course_group.group_number}_' \
@@ -280,7 +287,7 @@ class Schedule(models.Model):
 
     course_group = models.ForeignKey("CourseGroup",
                                      on_delete=models.DO_NOTHING, related_name='schedule', blank=False, null=False)
-    schedule_file = models.FileField(upload_to=get_schedule_path,
+    schedule_file = models.FileField(_('Файл расписания'), upload_to=get_schedule_path,
                                      validators=[
                                          FileExtensionValidator(['json']),
                                          FileValidator(1024 * 100)
@@ -288,23 +295,26 @@ class Schedule(models.Model):
                                      storage=OverwriteStorage(),
                                      max_length=50)
 
+    def __str__(self):
+        return f"Расписание для {self.course_group}"
+
 
 class Event(models.Model):
     title = models.CharField(
-        _('event title'),
+        _('Название события'),
         max_length=100,
         blank=True
     )
     description = models.TextField(
-        _('event description'),
+        _('Описание события'),
         max_length=800,
         blank=True
     )
 
-    event_start_datetime = models.DateTimeField(_('event start'), default=timezone.now)
-    event_end_datetime = models.DateTimeField(_('event end'), default=timezone.now)
+    event_start_datetime = models.DateTimeField(_('Начало события'), default=timezone.now)
+    event_end_datetime = models.DateTimeField(_('Конец события'), default=timezone.now)
     is_full_day = models.BooleanField(
-        _('is full day'),
+        _('Полный день'),
         default=True,
     )
     course_groups = models.ManyToManyField(
@@ -322,7 +332,7 @@ class Event(models.Model):
         ('h', "Праздник"),
     ]
 
-    e_type = models.CharField(_("event type"), max_length=1, choices=EVENT_TYPES_RU, blank=False, null=False)
+    e_type = models.CharField(_("Тип события"), max_length=1, choices=EVENT_TYPES_RU, blank=False, null=False)
 
     def __str__(self):
         return self.title
@@ -344,4 +354,8 @@ class Publication(models.Model):
                               null=True)
 
     image = models.CharField(_('Изображение'),
-                              blank=True, null=True)
+                             blank=True, null=True)
+
+    def __str__(self):
+        return self.title
+

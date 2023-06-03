@@ -19,4 +19,4 @@ def get_answer(text):
 
 
 if __name__ == '__main__':
-    print(get_answer("Привет, как дела?"))
+    print(get_answer("Как продать усы сыча?"))
