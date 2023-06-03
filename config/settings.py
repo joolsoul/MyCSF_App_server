@@ -139,7 +139,13 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
         'rest_framework.authentication.SessionAuthentication',
     ],
-    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema'
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
+    'DEFAULT_THROTTLE_CLASSES': [
+        'api.throttle.ChatRateThrottle',
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'chat': '15/minute',
+    }
 }
 
 SIMPLE_JWT = {
@@ -149,7 +155,7 @@ SIMPLE_JWT = {
 }
 
 CRONJOBS = [
-    ('*/5 * * * *', 'api.news_parser.get_news'),
+    ('*/2 * * * *', 'api.news_parser.get_news'),
 ]
 
 MEDIA_URL = '/media/'

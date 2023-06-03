@@ -3,7 +3,7 @@ from rest_framework import routers
 
 from api.views import CourseGroupApiList, UserShortInfoViewSet, UserScheduleViewSet, UserAvatarUpdateView, \
     PublicationApiList, \
-    MapChoicesView, DateWeekInfoView, EventApiView
+    MapChoicesView, DateWeekInfoView, EventApiView, ChatBotApiView
 # from api.views import ProfessorApiList
 from api.views import StudentViewSet, ProfessorViewSet, MapApiView
 
@@ -24,6 +24,7 @@ urlpatterns = [
     # path('schedule/', ScheduleApiList.as_view()),
     # path('schedule/<int:pk>/', ScheduleApi.as_view()),
     path('map/choices/', MapChoicesView.as_view()),
+    path('chatBot/getAnswer', ChatBotApiView.as_view()),
     path('dateInfo', DateWeekInfoView.as_view()),
     path('auth/', include('djoser.urls.jwt')),
     # path('auth/users/shortinfo', UserShortInfoView.as_view())

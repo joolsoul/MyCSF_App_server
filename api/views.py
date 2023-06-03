@@ -20,13 +20,25 @@ from api.models import Student, Professor, CourseGroup, Schedule, Map, Event, Pu
 from api.permissions import AdminOrReadOnlyPermission, IsOwnerOrAdmin
 from api.schedule_utilities import get_user_schedule
 from api.searchfilters import BuildingSearchFilter
-from api.serializers import CourseGroupSerializer, MyUserCreateSerializer, SimpleUserSerializer, EventSerializer, PublicationSerializer
+from api.serializers import CourseGroupSerializer, MyUserCreateSerializer, SimpleUserSerializer, EventSerializer, \
+    PublicationSerializer
 from api.serializers import ScheduleSerializer, MapSerializer
 from api.serializers import StudentCreateSerializer, ProfessorCreateSerializer
 
 from rest_framework.pagination import LimitOffsetPagination
 
+from api.throttle import ChatRateThrottle
+from api.chat_bot import get_answer
+
 User = get_user_model()
+
+
+class ChatBotApiView(APIView):
+    permission_classes = [IsAuthenticated]
+    throttle_classes = ChatRateThrottle
+
+    def post(self, request):
+        return Response({'answer': get_answer(request.data['text'])})
 
 
 class CourseGroupApiList(generics.ListCreateAPIView):
