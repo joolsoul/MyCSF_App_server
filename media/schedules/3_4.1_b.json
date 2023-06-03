@@ -6,13 +6,13 @@
                 "timeTo": "11:20",
                 "subjectName": "Философия",
                 "classroom": "310П",
-                "professor": "Зенин К.В."
+                "professor": "Стадная Н.П."
             },
             {
                 "timeFrom": "11:30",
                 "timeTo": "13:05",
                 "subjectName": "Философия",
-                "classroom": "315П",
+                "classroom": "290П",
                 "professor": "Зенин К.В."
             }
         ],
@@ -62,7 +62,7 @@
                 "timeFrom": "8:00",
                 "timeTo": "9:45",
                 "subjectName": "Кванты",
-                "classroom": "315П",
+                "classroom": "292",
                 "professor": "Зенин К.В."
             }
         ],
