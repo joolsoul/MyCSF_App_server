@@ -54,15 +54,11 @@ class ScheduleApiTest(APITestCase):
             'friday': data['numerator']['friday'] + data['denominator']['friday'],
             'saturday': data['numerator']['saturday'] + data['denominator']['saturday']
         }
+        countLessons = 0
         days = schedule.keys()
-        expectedCount = 0
         for key in days:
-            lessonsDict = schedule[key]
-            if key == 'monday':
-                for i in range(len(lessonsDict)):
-                    if schedule[key][i]['subjectName'] == 'Философия':
-                        expectedCount += 1
-        self.assertEqual(expectedCount, 3)
+            countLessons += len(schedule[key])
+        self.assertEqual(countLessons, 14)
 
     def test_get_lessons_list_per_week_for_professor(self):
         endpoint = '/api/schedule/1/?week=n'
