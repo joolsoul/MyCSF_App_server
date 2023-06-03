@@ -12,7 +12,7 @@ from rest_framework.exceptions import NotFound
 from rest_framework.mixins import RetrieveModelMixin, UpdateModelMixin
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from rest_framework.status import HTTP_200_OK
+from rest_framework.status import HTTP_200_OK, HTTP_429_TOO_MANY_REQUESTS
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
 
@@ -35,10 +35,14 @@ User = get_user_model()
 
 class ChatBotApiView(APIView):
     permission_classes = [IsAuthenticated]
-    throttle_classes = ChatRateThrottle
+    throttle_classes = [ChatRateThrottle]
 
     def post(self, request):
-        return Response({'answer': get_answer(request.data['text'])})
+        try:
+            ans_json = {'answer': get_answer(request.data['text'])}
+            return Response(ans_json, status=HTTP_200_OK)
+        except Exception as e:
+            return Response({"answer": "Попробуйте позже"}, status=HTTP_429_TOO_MANY_REQUESTS)
 
 
 class CourseGroupApiList(generics.ListCreateAPIView):

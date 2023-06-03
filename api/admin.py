@@ -7,19 +7,6 @@ from django.utils.translation import gettext_lazy as _
 from .models import User, Map, Schedule, CourseGroup, Publication, Student, Professor, Event
 
 
-# Register your models here.
-# admin.site.register(User)
-
-
-# class StudentAdmin(admin.ModelAdmin):
-#     list_display = ('get_user', 'year_of_enrollment', 'record_book_number', "course_group")
-#
-#     @admin.display()
-#     def get_user(self, obj):
-#         return obj.user
-#
-# admin.site.register(Student, StudentAdmin)
-
 class StudentInline(admin.StackedInline):
     model = Student
     can_delete = False
