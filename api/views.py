@@ -2,6 +2,7 @@ import datetime
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.tokens import default_token_generator
+from django.utils import timezone
 from djoser import signals, utils
 from djoser.conf import settings
 from django.db.models import Q
@@ -52,6 +53,9 @@ class EventApiView(ModelViewSet):
                 queryset = queryset.filter(Q(course_groups=None) | Q(course_groups=student_course_group))
             except Exception as e:
                 queryset = queryset.filter(course_groups=None)
+
+        if self.request.query_params.get("latest") == "true":
+            queryset = queryset.filter(event_start_datetime__gte=timezone.now()).order_by('event_start_datetime')
         return queryset
 
 
