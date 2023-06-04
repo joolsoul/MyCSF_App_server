@@ -64,14 +64,15 @@ class MapApiTest(APITestCase):
         self.assertIn('maps/ex1a_3.png', file_link)
 
     def test_delete_map(self):
-        admin = User.objects.create_user(username='admin', password='root', email='test@gmail.com', is_staff=True)
-        self.client.login(username=admin.username, password='root')
         endpoint = '/api/map/2/'
         response = self.client.get(endpoint)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertIn('map_file', response.data)
 
         response = self.client.delete(endpoint)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+        self.student.is_staff = True
+        self.student.save()
+        response = self.client.delete(endpoint)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
-        response = self.client.get(endpoint)
-        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)

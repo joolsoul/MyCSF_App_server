@@ -40,15 +40,12 @@ class ProfessorAPITest(APITestCase):
         self.assertEqual(self.resp.status_code, status.HTTP_200_OK)
 
     def test_get_professors_list(self):
-        self.admin = User.objects.create_user(username='admin', password='admin', email='admin@gmail.com')
-        self.client.force_authenticate(user=self.admin)
-
         endpoint = '/api/auth/users/professors/'
         response = self.client.get(endpoint)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data, [])
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
-        self.admin.is_staff = True
+        token = self.response.data['access']
+        self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {token}')
         response = self.client.get(endpoint)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertNotEquals(response.data, [])

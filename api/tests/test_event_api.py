@@ -19,7 +19,7 @@ class EventApiTest(APITestCase):
         self.test_user = User.objects.create_user(username='stepkin', email='stepkin@gmail.com',
                                                   password='kd203sdlA', first_name='Андрей', second_name='Степанов',
                                                   patronymic='Алексеевич', phone='+79009754936',
-                                                  is_staff=True)
+                                                  is_staff=False)
 
         self.endpoint = '/api/auth/jwt/create/'
         self.response = self.client.post(
@@ -31,31 +31,32 @@ class EventApiTest(APITestCase):
             format='json'
         )
         self.assertEqual(self.response.status_code, status.HTTP_200_OK)
-        # self.client.login(username=self.test_user.username, password='kd203sdlA')
 
     def test_get_all_events(self):
         endpoint = '/api/event/'
         response = self.client.get(endpoint)
-        print(response.data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_create_valid_event(self):
         token = self.response.data['access']
         self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {token}')
         endpoint = '/api/event/'
-        response = self.client.post(
-            endpoint,
-            data=json.dumps(
-                {
-                    'title': 'День открытых дверей на ФКН',
-                    'description': 'Факультет компьютерных наук приглашает абитуриентов на День открытых дверей!',
-                    'event_start_datetime': '2023-04-23 10:00:00 +00:00',
-                    'event_end_datetime': '2023-04-23 13:00:00 +00:00',
-                    'is_full_day': False,
-                    'e_type': 'i'
-                }
-            ),
-            content_type='application/json')
+        data = json.dumps(
+            {
+                'title': 'День открытых дверей на ФКН',
+                'description': 'Факультет компьютерных наук приглашает абитуриентов на День открытых дверей!',
+                'event_start_datetime': '2023-04-23 10:00:00 +00:00',
+                'event_end_datetime': '2023-04-23 13:00:00 +00:00',
+                'is_full_day': False,
+                'e_type': 'i'
+            }
+        )
+        response = self.client.post(endpoint, data, content_type='application/json')
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+        self.test_user.is_staff=True
+        self.test_user.save()
+        response = self.client.post(endpoint, data, content_type='application/json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
     def test_get_event_detail(self):
@@ -63,7 +64,6 @@ class EventApiTest(APITestCase):
         response = self.client.get(endpoint)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertTrue('a', response.data['e_type'])
-        print(response.data)
 
     def test_partial_update_event(self):
         endpoint = '/api/event/1/'
@@ -99,8 +99,15 @@ class EventApiTest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_delete_event(self):
+        token = self.response.data['access']
+        self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {token}')
         endpoint = '/api/event/1/'
         response = self.client.get(endpoint)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+        response = self.client.delete(endpoint)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+        self.test_user.is_staff = True
+        self.test_user.save()
         response = self.client.delete(endpoint)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
