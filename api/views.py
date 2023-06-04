@@ -6,6 +6,8 @@ from django.db.models import Q
 from django.utils import timezone
 from djoser import signals, utils
 from djoser.conf import settings
+from drf_yasg import openapi
+from drf_yasg.utils import swagger_auto_schema
 from rest_framework import generics, status
 from rest_framework.decorators import action
 from rest_framework.exceptions import NotFound
@@ -35,6 +37,21 @@ class ChatBotApiView(APIView):
     permission_classes = [IsAuthenticated]
     throttle_classes = [ChatRateThrottle]
 
+    @swagger_auto_schema(
+        tags=['Chat Bot'],
+        operation_description="Send a text message to the chat bot",
+        request_body=openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={
+                'text': openapi.Schema(type=openapi.TYPE_STRING),
+            },
+            required=['text']
+        ),
+        responses={
+            HTTP_200_OK: 'OK',
+            HTTP_429_TOO_MANY_REQUESTS: 'Too Many Requests',
+        }
+    )
     def post(self, request):
         try:
             ans_json = {'answer': get_answer(request.data['text'])}
@@ -48,11 +65,101 @@ class CourseGroupApiList(generics.ListCreateAPIView):
     serializer_class = CourseGroupSerializer
     permission_classes = [AdminOrReadOnlyPermission]
 
+    @swagger_auto_schema(
+        tags=['Course Groups'],
+        operation_description="Retrieve a list of course groups",
+        responses={
+            200: 'Success',
+            401: 'Unauthorized',
+            403: 'Forbidden'
+        }
+    )
+    def get(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
+
+    @swagger_auto_schema(
+        tags=['Course Groups'],
+        operation_description="Create a new course group",
+        responses={
+            201: 'Created',
+            400: 'Bad Request',
+            401: 'Unauthorized',
+            403: 'Forbidden'
+        }
+    )
+    def post(self, request, *args, **kwargs):
+        return super().create(request, *args, **kwargs)
+
 
 class EventApiView(ModelViewSet):
     permission_classes = [AdminOrReadOnlyPermission]
     queryset = Event.objects.all()
     serializer_class = EventSerializer
+
+    @swagger_auto_schema(
+        tags=['Events'],
+        operation_description="Retrieve a list of events",
+        responses={
+            200: 'Success',
+            401: 'Unauthorized',
+            403: 'Forbidden'
+        }
+    )
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
+
+    @swagger_auto_schema(
+        tags=['Events'],
+        operation_description="Create a new event",
+        responses={
+            201: 'Created',
+            400: 'Bad Request',
+            401: 'Unauthorized',
+            403: 'Forbidden'
+        }
+    )
+    def create(self, request, *args, **kwargs):
+        return super().create(request, *args, **kwargs)
+
+    @swagger_auto_schema(
+        tags=['Events'],
+        operation_description="Retrieve details of a specific event",
+        responses={
+            200: 'Success',
+            401: 'Unauthorized',
+            403: 'Forbidden',
+            404: 'Not Found'
+        }
+    )
+    def retrieve(self, request, *args, **kwargs):
+        return super().retrieve(request, *args, **kwargs)
+
+    @swagger_auto_schema(
+        tags=['Events'],
+        operation_description="Update a specific event",
+        responses={
+            200: 'Success',
+            400: 'Bad Request',
+            401: 'Unauthorized',
+            403: 'Forbidden',
+            404: 'Not Found'
+        }
+    )
+    def update(self, request, *args, **kwargs):
+        return super().update(request, *args, **kwargs)
+
+    @swagger_auto_schema(
+        tags=['Events'],
+        operation_description="Delete a specific event",
+        responses={
+            204: 'No Content',
+            401: 'Unauthorized',
+            403: 'Forbidden',
+            404: 'Not Found'
+        }
+    )
+    def destroy(self, request, *args, **kwargs):
+        return super().destroy(request, *args, **kwargs)
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -79,6 +186,18 @@ class PublicationApiList(generics.ListAPIView):
     permission_classes = [AdminOrReadOnlyPermission]
     pagination_class = LimitOffsetPagination
 
+    @swagger_auto_schema(
+        tags=['Publications'],
+        operation_description="Retrieve a list of publications",
+        responses={
+            200: 'Success',
+            401: 'Unauthorized',
+            403: 'Forbidden'
+        }
+    )
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
+
     def get_queryset(self):
         queryset = super().get_queryset()
         queryset = queryset.order_by('-publication_datetime')
@@ -92,8 +211,32 @@ class MapApiView(ModelViewSet):
     filter_backends = [BuildingSearchFilter]
     search_fields = ['building']
 
+    @swagger_auto_schema(tags=['Maps'])
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
+
+    @swagger_auto_schema(tags=['Maps'])
+    def create(self, request, *args, **kwargs):
+        return super().create(request, *args, **kwargs)
+
+    @swagger_auto_schema(tags=['Maps'])
+    def retrieve(self, request, *args, **kwargs):
+        return super().retrieve(request, *args, **kwargs)
+
+    @swagger_auto_schema(tags=['Maps'])
+    def update(self, request, *args, **kwargs):
+        return super().update(request, *args, **kwargs)
+
 
 class MapChoicesView(APIView):
+    @swagger_auto_schema(
+        tags=['Maps'],
+        operation_description="Get choices for the 'building' field in the Map serializer",
+        responses={
+            200: 'Success',
+            400: 'Bad Request'
+        }
+    )
     def get(self, request):
         serializer = MapSerializer()
         choices = serializer.fields['building'].choices
@@ -109,6 +252,33 @@ class MapChoicesView(APIView):
 class DateWeekInfoView(APIView):
     permission_classes = [IsAuthenticated]
 
+    @swagger_auto_schema(
+        tags=['Date Info'],
+        operation_summary="Get week and weekday information",
+        manual_parameters=[
+            openapi.Parameter(
+                name='date',
+                in_=openapi.IN_QUERY,
+                description='Date in the format dd-mm-yyyy',
+                type=openapi.TYPE_STRING,
+                required=True
+            )
+        ],
+        responses={
+            200: openapi.Response(
+                description="Success",
+                schema=openapi.Schema(
+                    type=openapi.TYPE_OBJECT,
+                    properties={
+                        'week': openapi.Schema(type=openapi.TYPE_STRING),
+                        'weekday': openapi.Schema(type=openapi.TYPE_STRING),
+                    }
+                )
+            ),
+            400: openapi.Response(description="Bad Request"),
+            401: openapi.Response(description="Unauthorized"),
+        }
+    )
     def get(self, request):
         date = request.query_params['date']
         parse_date = datetime.datetime.strptime(date, "%d-%m-%Y").date()
@@ -143,6 +313,30 @@ class UserScheduleViewSet(RetrieveModelMixin, GenericViewSet):
     queryset = Schedule.objects.all()
     serializer_class = ScheduleSerializer
 
+    @swagger_auto_schema(
+        tags=['User Schedule'],
+        manual_parameters=[
+            openapi.Parameter(
+                name='week',
+                in_=openapi.IN_QUERY,
+                description='Week number',
+                type=openapi.TYPE_INTEGER,
+                required=False
+            ),
+            openapi.Parameter(
+                name='day',
+                in_=openapi.IN_QUERY,
+                description='Day of the week',
+                type=openapi.TYPE_STRING,
+                required=False
+            )
+        ],
+        responses={
+            200: openapi.Response(description="Success"),
+            401: openapi.Response(description="Unauthorized"),
+            404: openapi.Response(description="Not Found"),
+        }
+    )
     def retrieve(self, request, *args, **kwargs):
         instance = self.get_object()
         return Response(instance, status=HTTP_200_OK)
@@ -185,6 +379,17 @@ class UserShortInfoViewSet(RetrieveModelMixin, GenericViewSet):
     queryset = User.objects.all()
     serializer_class = MyUserCreateSerializer
 
+    @swagger_auto_schema(
+        tags=['User Short Info'],
+        responses={
+            200: openapi.Response(description="Success"),
+            401: openapi.Response(description="Unauthorized"),
+            404: openapi.Response(description="Not Found"),
+        }
+    )
+    def retrieve(self, request, *args, **kwargs):
+        return super().retrieve(request, *args, **kwargs)
+
     def get_object(self):
         try:
             _id = int(self.kwargs.get("pk"))
@@ -197,50 +402,32 @@ class UserShortInfoViewSet(RetrieveModelMixin, GenericViewSet):
             return super().get_object()
 
 
-# class StudentViewSet(UserViewSet):
-#     # serializer_class = StudentCreateSerializer
-#
-#     def get_serializer_class(self):
-#         if self.action == "create":
-#             return StudentCreateSerializer
-#         elif self.action == "destroy" or (
-#             self.action == "me" and self.request and self.request.method == "DELETE"
-#         ):
-#             return settings.SERIALIZERS.user_delete
-#         elif self.action == "activation":
-#             return settings.SERIALIZERS.activation
-#         elif self.action == "resend_activation":
-#             return settings.SERIALIZERS.password_reset
-#         elif self.action == "reset_password":
-#             return settings.SERIALIZERS.password_reset
-#         elif self.action == "reset_password_confirm":
-#             if settings.PASSWORD_RESET_CONFIRM_RETYPE:
-#                 return settings.SERIALIZERS.password_reset_confirm_retype
-#             return settings.SERIALIZERS.password_reset_confirm
-#         elif self.action == "set_password":
-#             if settings.SET_PASSWORD_RETYPE:
-#                 return settings.SERIALIZERS.set_password_retype
-#             return settings.SERIALIZERS.set_password
-#         elif self.action == "set_username":
-#             if settings.SET_USERNAME_RETYPE:
-#                 return settings.SERIALIZERS.set_username_retype
-#             return settings.SERIALIZERS.set_username
-#         elif self.action == "reset_username":
-#             return settings.SERIALIZERS.username_reset
-#         elif self.action == "reset_username_confirm":
-#             if settings.USERNAME_RESET_CONFIRM_RETYPE:
-#                 return settings.SERIALIZERS.username_reset_confirm_retype
-#             return settings.SERIALIZERS.username_reset_confirm
-#         elif self.action == "me":
-#             return settings.SERIALIZERS.current_user
-#
-#         return self.serializer_class
-
 class UserAvatarUpdateView(UpdateModelMixin, GenericViewSet):
     queryset = User.objects.all()
     serializer_class = SimpleUserSerializer
     permission_classes = [IsAuthenticated, IsOwnerOrAdmin]
 
+
+    @swagger_auto_schema(
+        tags=['User Avatar'],
+        request_body=openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={
+                'avatar': openapi.Schema(
+                    type=openapi.TYPE_FILE,
+                    description='New avatar image file'
+                )
+            },
+            required=['avatar']
+        ),
+        responses={
+            200: openapi.Response(description="Success"),
+            400: openapi.Response(description="Bad Request"),
+            401: openapi.Response(description="Unauthorized"),
+            403: openapi.Response(description="Forbidden"),
+            404: openapi.Response(description="Not Found"),
+        }
+    )
     def partial_update(self, request, *args, **kwargs):
         instance = self.get_object()
         serializer = self.get_serializer(instance, data=request.data, partial=True)
