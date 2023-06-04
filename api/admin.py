@@ -3,6 +3,7 @@ from django.contrib.admin import ModelAdmin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import Group
 from django.utils.translation import gettext_lazy as _
+import sys, inspect
 
 from .models import User, Map, Schedule, CourseGroup, Publication, Student, Professor, Event
 
@@ -64,7 +65,7 @@ class UserAdmin(BaseUserAdmin):
 
 class EventAdmin(ModelAdmin):
     list_display = ("title", "event_start_datetime", "event_end_datetime", "is_full_day", "e_type")
-    filter_horizontal = ("course_groups", )
+    filter_horizontal = ("course_groups",)
 
 
 class PublicationAdmin(ModelAdmin):
@@ -84,4 +85,3 @@ admin.site.register(Schedule)
 admin.site.register(CourseGroup)
 admin.site.register(Event, EventAdmin)
 admin.site.register(Publication, PublicationAdmin)
-

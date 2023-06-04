@@ -69,5 +69,5 @@ def get_photo(attachments: list):
         return photo[0]
 
 
-if __name__ == '__main__':
-    get_news()
+# if __name__ == '__main__':
+#     get_news()

@@ -37,7 +37,6 @@ class ChatConsumer(AsyncJsonWebsocketConsumer):
             channel=self.channel_name
         )
 
-
     async def receive_json(self, text_data=None, byte_data=None):
         print(text_data, self.user)
         message = text_data['message']

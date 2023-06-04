@@ -18,5 +18,5 @@ def get_answer(text):
     return response['choices'][0]['text']
 
 
-if __name__ == '__main__':
-    print(get_answer("Как продать усы сыча?"))
+# if __name__ == '__main__':
+#     print(get_answer("Привет, как дела?"))

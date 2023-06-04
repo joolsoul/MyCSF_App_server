@@ -2,20 +2,22 @@ import datetime
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.tokens import default_token_generator
+from django.db.models import Q
 from django.utils import timezone
 from djoser import signals, utils
 from djoser.conf import settings
-from django.db.models import Q
 from rest_framework import generics, status
 from rest_framework.decorators import action
 from rest_framework.exceptions import NotFound
 from rest_framework.mixins import RetrieveModelMixin, UpdateModelMixin
+from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK, HTTP_429_TOO_MANY_REQUESTS
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
 
+from api.chat_bot import get_answer
 from api.models import Student, Professor, CourseGroup, Schedule, Map, Event, Publication
 from api.permissions import AdminOrReadOnlyPermission, IsOwnerOrAdmin
 from api.schedule_utilities import get_user_schedule
@@ -24,11 +26,7 @@ from api.serializers import CourseGroupSerializer, MyUserCreateSerializer, Simpl
     PublicationSerializer
 from api.serializers import ScheduleSerializer, MapSerializer
 from api.serializers import StudentCreateSerializer, ProfessorCreateSerializer
-
-from rest_framework.pagination import LimitOffsetPagination
-
 from api.throttle import ChatRateThrottle
-from api.chat_bot import get_answer
 
 User = get_user_model()
 

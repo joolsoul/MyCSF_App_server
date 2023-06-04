@@ -6,7 +6,7 @@ from django.conf import settings
 from django.contrib import auth
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
-from django.core.validators import FileExtensionValidator
+from django.core.validators import FileExtensionValidator, MinValueValidator, MaxValueValidator
 from django.db import models
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
@@ -204,7 +204,8 @@ class Professor(models.Model):
 
 
 class CourseGroup(models.Model):
-    course_number = models.IntegerField(_('Номер курса'), blank=False)
+    course_number = models.IntegerField(_('Номер курса'), blank=False,
+                                        validators=[MinValueValidator(1), MaxValueValidator(5)])
     group_number = models.CharField(_('Номер группы'), max_length=10, blank=False)  # TODO: валидация двух полей
     EDUCATION_LEVELS = [
         ('b', "bachelor"),
@@ -255,7 +256,7 @@ class Map(models.Model):
     map_file = models.FileField(upload_to=get_map_path,
                                 validators=[
                                     FileExtensionValidator(['png'])
-                                ])
+                                ], blank=True, null=True)
 
     def __str__(self):
         return f"{self.BUILDINGS_RU_DICT[self.building]} {self.building_level} этаж"
