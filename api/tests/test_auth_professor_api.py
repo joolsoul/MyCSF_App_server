@@ -76,8 +76,8 @@ class ProfessorAPITest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
     def test_get_info_about_yourself_by_auth_professor(self):
-        token = self.response.data['access']
         endpoint = '/api/auth/users/professors/me/'
+        token = self.response.data['access']
         self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {token}')
         response = self.client.get(
             endpoint,
