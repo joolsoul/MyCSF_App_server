@@ -95,6 +95,7 @@ def get_professor_schedule(professor):
                             couple['classroom'],
                             couple['professor']
                         ))
+                _sort_couples(schedule_dict[week][day])
 
             continue
         else:
@@ -104,6 +105,10 @@ def get_professor_schedule(professor):
     #     json.dump(schedule_dict, uu)
 
     return schedule_dict
+
+
+def _sort_couples(couples: list):
+    couples.sort(key=lambda couple: datetime.datetime.strptime(couple['timeFrom'], '%H:%M'))
 
 
 def _create_empty_schedule_dict():
@@ -145,7 +150,6 @@ def _check_uniq_couple(day: list, couple):
                 and curr_couple['classroom'] == couple['classroom']:
             return False
     return True
-
 
 # if __name__ == "__main__":
 #     file = get_professor_schedule()
