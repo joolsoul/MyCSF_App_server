@@ -9,12 +9,21 @@ from api.serializers import CourseGroupSerializer
 
 class CourseGroupAPITest(APITestCase):
     def setUp(self):
-        self.admin = User.objects.create_user(username='admin', password='root', email='test@gmail.com',
-                                             is_superuser=True, is_staff=True, is_active=True, is_verified=True)
-        self.admin.save()
         self.client = APIClient()
-        self.client.login(username=self.admin.username, password='root')
-
+        self.test_user = User.objects.create_user(username='stepkin', email='stepkin@gmail.com',
+                                                  password='kd203sdlA', first_name='Андрей', second_name='Степанов',
+                                                  patronymic='Алексеевич', phone='+79009754936',
+                                                  is_staff=False)
+        self.endpoint = '/api/auth/jwt/create/'
+        self.response = self.client.post(
+            self.endpoint,
+            {
+                'username': 'stepkin',
+                'password': 'kd203sdlA'
+            },
+            format='json'
+        )
+        self.assertEqual(self.response.status_code, status.HTTP_200_OK)
         CourseGroup.objects.create(course_number=3, group_number='3.1', higher_education_level='b')
         CourseGroup.objects.create(course_number=1, group_number='2', higher_education_level='m')
 
@@ -26,6 +35,20 @@ class CourseGroupAPITest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_create_valid_courseGroup(self):
+        token = self.response.data['access']
+        self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {token}')
+        response = self.client.post(
+            reverse('courseGroup'),
+            data=json.dumps(
+                {
+                    'course_number': 1,
+                    'group_number': '2',
+                    'higher_education_level': 'm'}),
+            content_type='application/json')
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+        self.test_user.is_staff = True
+        self.test_user.save()
         response = self.client.post(
             reverse('courseGroup'),
             data=json.dumps(
@@ -37,6 +60,10 @@ class CourseGroupAPITest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
     def test_create_invalid_courseGroup(self):
+        self.test_user.is_staff = True
+        self.test_user.save()
+        token = self.response.data['access']
+        self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {token}')
         response = self.client.post(
             reverse('courseGroup'),
             data=json.dumps(
