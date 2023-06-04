@@ -12,9 +12,14 @@ class StudentInline(admin.StackedInline):
     can_delete = False
     verbose_name_plural = 'Student'
 
+class ProfessorInline(admin.StackedInline):
+    model = Professor
+    can_delete = False
+    verbose_name_plural = 'Professor'
+
 
 class UserAdmin(BaseUserAdmin):
-    inlines = (StudentInline,)
+    inlines = (StudentInline, ProfessorInline)
     fieldsets = (
         (None, {"fields": ("username", "password")}),
         (_("Personal info"), {"fields": ("first_name", "second_name", "patronymic", "email", "phone", "avatar")}),
