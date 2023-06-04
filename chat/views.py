@@ -44,7 +44,15 @@ class ChatRoomListView(APIView):
         room_ids = list(ChatRoomParticipants.objects.filter(
             user=user).values_list('room__id', flat=True))
         chatrooms = list(ChatRoomParticipants.objects.exclude(user__id=user.id).filter(
-            room__id__in=room_ids).values('user__username', 'user__id', 'room__id', 'room__name', 'room__last_message', 'room__last_sent_user'))
+            room__id__in=room_ids).values('user__username', 'user__avatar', 'user__first_name', 'user__second_name', 'user__patronymic', 'user__id', 'room__id', 'room__name', 'room__last_message', 'room__last_sent_user'))
+
+        scheme = request.is_secure() and "https" or "http"
+        host = request.get_host()
+
+        for chatroom in chatrooms:
+            if chatroom["user__avatar"]:
+                full_path = f'{scheme}://{host}/media/{chatroom["user__avatar"]}'
+                chatroom["user__avatar"] = full_path
 
         response_content = {
             'status': True,
