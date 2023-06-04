@@ -1,6 +1,13 @@
+import os
+
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings")
+
+import django
+
+django.setup()
+
 import datetime
 import json
-import os
 
 from django.conf import settings
 from rest_framework.exceptions import NotFound
@@ -48,6 +55,8 @@ def get_user_schedule(user, user_role, week=None, day=None):
             return week_schedule['friday']
         if weekday == 5:
             return week_schedule['saturday']
+        if weekday == 6:
+            return None
 
     return file
 
@@ -71,16 +80,20 @@ def get_professor_schedule(professor):
         filename = os.fsdecode(file)
         if filename.endswith(".json"):
             current_schedule = json.load(open(ROOT_PATH + '/' + filename, encoding='utf-8', mode="r", ))
+        else:
+            continue
 
         for week in current_schedule.keys():
             for day, v in current_schedule[week].items():
                 for couple in v:
-                    if len(couple) != 0 and couple['professor'] == identification:
+                    if len(couple) != 0 and couple['professor'] == identification \
+                            and _check_uniq_couple(schedule_dict[week][day], couple):
                         schedule_dict[week][day].append(_create_couple_dict(
                             couple['timeFrom'],
                             couple['timeTo'],
                             couple['subjectName'],
-                            couple['classroom']
+                            couple['classroom'],
+                            couple['professor']
                         ))
 
             continue
@@ -114,11 +127,26 @@ def _create_empty_schedule_dict():
     }
 
 
-def _create_couple_dict(time_from, time_to, subject_name, classroom):
+def _create_couple_dict(time_from, time_to, subject_name, classroom, professor):
     return {
         'timeFrom': time_from,
         'timeTo': time_to,
         'subjectName': subject_name,
-        'classroom': classroom
+        'classroom': classroom,
+        'professor': professor
     }
 
+
+def _check_uniq_couple(day: list, couple):
+    for curr_couple in day:
+        if curr_couple['timeFrom'] == couple['timeFrom'] \
+                and curr_couple['timeTo'] == couple['timeTo'] \
+                and curr_couple['subjectName'] == couple['subjectName'] \
+                and curr_couple['classroom'] == couple['classroom']:
+            return False
+    return True
+
+
+# if __name__ == "__main__":
+#     file = get_professor_schedule()
+#     print()

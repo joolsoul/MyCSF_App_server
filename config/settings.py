@@ -149,9 +149,6 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
     ],
     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
-    'DEFAULT_THROTTLE_CLASSES': [
-        'api.throttle.ChatRateThrottle',
-    ],
     'DEFAULT_THROTTLE_RATES': {
         'chat': '15/minute',
     }
