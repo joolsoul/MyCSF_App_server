@@ -35,10 +35,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     #   3-d party apps
     'drf_yasg',
+    'channels',
     'rest_framework',
     'django_crontab',
     #   local apps
-    'api'
+    'api',
+    'chat'
 ]
 
 MIDDLEWARE = [
@@ -71,7 +73,14 @@ TEMPLATES = [
     },
 ]
 
+ASGI_APPLICATION = 'config.asgi.application'
 WSGI_APPLICATION = 'config.wsgi.application'
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer"
+    }
+}
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases

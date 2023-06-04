@@ -261,19 +261,19 @@ class Map(models.Model):
         return f"{self.BUILDINGS_RU_DICT[self.building]} {self.building_level} этаж"
 
 
-class Message(models.Model):
-    text = models.CharField(_('message text'), max_length=100, blank=False)
-    message_datetime = models.DateTimeField(_('message datetime'), default=timezone.now)
-    user_from = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        verbose_name=_("User"), on_delete=models.DO_NOTHING,
-        related_name='massageFrom',
-        blank=False, null=False)
-    user_to = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        verbose_name=_("User"), on_delete=models.DO_NOTHING,
-        related_name='messageTo',
-        blank=False, null=False)
+# class Message(models.Model):
+#     text = models.CharField(_('message text'), max_length=100, blank=False)
+#     message_datetime = models.DateTimeField(_('message datetime'), default=timezone.now)
+#     user_from = models.ForeignKey(
+#         settings.AUTH_USER_MODEL,
+#         verbose_name=_("User"), on_delete=models.DO_NOTHING,
+#         related_name='massageFrom',
+#         blank=False, null=False)
+#     user_to = models.ForeignKey(
+#         settings.AUTH_USER_MODEL,
+#         verbose_name=_("User"), on_delete=models.DO_NOTHING,
+#         related_name='messageTo',
+#         blank=False, null=False)
 
 
 class Schedule(models.Model):
