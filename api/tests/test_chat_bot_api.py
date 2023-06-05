@@ -3,7 +3,7 @@ from rest_framework.test import APITestCase, APIClient
 from api.models import User
 
 
-class PublicationApiTest(APITestCase):
+class ChatBotApiTest(APITestCase):
     def setUp(self):
         self.client = APIClient()
         self.test_user = User.objects.create_user(username='stepkin', email='stepkin@gmail.com',
