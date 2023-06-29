@@ -1,0 +1,1338 @@
+[
+  {
+    "model": "api.coursegroup",
+    "pk": 1,
+    "fields": {
+      "course_number": 1,
+      "group_number": "1.1",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 2,
+    "fields": {
+      "course_number": 1,
+      "group_number": "1.2",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 3,
+    "fields": {
+      "course_number": 1,
+      "group_number": "2.1",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 4,
+    "fields": {
+      "course_number": 1,
+      "group_number": "2.2",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 5,
+    "fields": {
+      "course_number": 1,
+      "group_number": "3.1",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 6,
+    "fields": {
+      "course_number": 1,
+      "group_number": "3.2",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 7,
+    "fields": {
+      "course_number": 1,
+      "group_number": "4.1",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 8,
+    "fields": {
+      "course_number": 1,
+      "group_number": "4.2",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 9,
+    "fields": {
+      "course_number": 1,
+      "group_number": "5.1",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 10,
+    "fields": {
+      "course_number": 1,
+      "group_number": "5.2",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 11,
+    "fields": {
+      "course_number": 1,
+      "group_number": "6.1",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 12,
+    "fields": {
+      "course_number": 1,
+      "group_number": "6.2",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 13,
+    "fields": {
+      "course_number": 1,
+      "group_number": "7.1",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 14,
+    "fields": {
+      "course_number": 1,
+      "group_number": "7.2",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 15,
+    "fields": {
+      "course_number": 1,
+      "group_number": "8.1",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 16,
+    "fields": {
+      "course_number": 1,
+      "group_number": "8.2",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 17,
+    "fields": {
+      "course_number": 1,
+      "group_number": "9.1",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 18,
+    "fields": {
+      "course_number": 1,
+      "group_number": "9.2",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 19,
+    "fields": {
+      "course_number": 1,
+      "group_number": "9.3",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 20,
+    "fields": {
+      "course_number": 1,
+      "group_number": "10.1",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 21,
+    "fields": {
+      "course_number": 1,
+      "group_number": "10.2",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 22,
+    "fields": {
+      "course_number": 1,
+      "group_number": "11.1",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 23,
+    "fields": {
+      "course_number": 1,
+      "group_number": "11.2",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 24,
+    "fields": {
+      "course_number": 1,
+      "group_number": "12",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 25,
+    "fields": {
+      "course_number": 1,
+      "group_number": "13.1",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 26,
+    "fields": {
+      "course_number": 1,
+      "group_number": "13.2",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 27,
+    "fields": {
+      "course_number": 1,
+      "group_number": "14",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 28,
+    "fields": {
+      "course_number": 1,
+      "group_number": "15.1",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 29,
+    "fields": {
+      "course_number": 1,
+      "group_number": "15.2",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 30,
+    "fields": {
+      "course_number": 1,
+      "group_number": "16.1",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 31,
+    "fields": {
+      "course_number": 1,
+      "group_number": "16.2",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 32,
+    "fields": {
+      "course_number": 2,
+      "group_number": "1.1",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 33,
+    "fields": {
+      "course_number": 2,
+      "group_number": "1.2",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 34,
+    "fields": {
+      "course_number": 2,
+      "group_number": "2.1",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 35,
+    "fields": {
+      "course_number": 2,
+      "group_number": "2.2",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 36,
+    "fields": {
+      "course_number": 2,
+      "group_number": "3.1",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 37,
+    "fields": {
+      "course_number": 2,
+      "group_number": "3.2",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 38,
+    "fields": {
+      "course_number": 2,
+      "group_number": "4.1",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 39,
+    "fields": {
+      "course_number": 2,
+      "group_number": "4.2",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 40,
+    "fields": {
+      "course_number": 2,
+      "group_number": "5.1",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 41,
+    "fields": {
+      "course_number": 2,
+      "group_number": "5.2",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 42,
+    "fields": {
+      "course_number": 2,
+      "group_number": "6.1",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 43,
+    "fields": {
+      "course_number": 2,
+      "group_number": "6.2",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 44,
+    "fields": {
+      "course_number": 2,
+      "group_number": "7.1",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 45,
+    "fields": {
+      "course_number": 2,
+      "group_number": "7.2",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 46,
+    "fields": {
+      "course_number": 2,
+      "group_number": "8.1",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 47,
+    "fields": {
+      "course_number": 2,
+      "group_number": "8.2",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 48,
+    "fields": {
+      "course_number": 2,
+      "group_number": "9.1",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 49,
+    "fields": {
+      "course_number": 2,
+      "group_number": "9.2",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 50,
+    "fields": {
+      "course_number": 2,
+      "group_number": "10",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 51,
+    "fields": {
+      "course_number": 2,
+      "group_number": "11",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 52,
+    "fields": {
+      "course_number": 2,
+      "group_number": "12.1",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 53,
+    "fields": {
+      "course_number": 2,
+      "group_number": "12.2",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 54,
+    "fields": {
+      "course_number": 2,
+      "group_number": "13",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 55,
+    "fields": {
+      "course_number": 2,
+      "group_number": "14.1",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 56,
+    "fields": {
+      "course_number": 2,
+      "group_number": "14.2",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 57,
+    "fields": {
+      "course_number": 2,
+      "group_number": "15.1",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 58,
+    "fields": {
+      "course_number": 2,
+      "group_number": "15.2",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 59,
+    "fields": {
+      "course_number": 3,
+      "group_number": "1",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 60,
+    "fields": {
+      "course_number": 3,
+      "group_number": "2",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 61,
+    "fields": {
+      "course_number": 3,
+      "group_number": "3",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 62,
+    "fields": {
+      "course_number": 3,
+      "group_number": "4.1",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 63,
+    "fields": {
+      "course_number": 3,
+      "group_number": "4.2",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 64,
+    "fields": {
+      "course_number": 3,
+      "group_number": "5.1",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 65,
+    "fields": {
+      "course_number": 3,
+      "group_number": "5.2",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 66,
+    "fields": {
+      "course_number": 3,
+      "group_number": "6.1",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 67,
+    "fields": {
+      "course_number": 3,
+      "group_number": "6.2",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 68,
+    "fields": {
+      "course_number": 3,
+      "group_number": "7.1",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 69,
+    "fields": {
+      "course_number": 3,
+      "group_number": "7.2",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 70,
+    "fields": {
+      "course_number": 3,
+      "group_number": "8",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 71,
+    "fields": {
+      "course_number": 3,
+      "group_number": "9",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 72,
+    "fields": {
+      "course_number": 3,
+      "group_number": "10.1",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 73,
+    "fields": {
+      "course_number": 3,
+      "group_number": "10.2",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 74,
+    "fields": {
+      "course_number": 3,
+      "group_number": "11.1",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 75,
+    "fields": {
+      "course_number": 3,
+      "group_number": "11.2",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 76,
+    "fields": {
+      "course_number": 3,
+      "group_number": "12.1",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 77,
+    "fields": {
+      "course_number": 3,
+      "group_number": "12.2",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 78,
+    "fields": {
+      "course_number": 4,
+      "group_number": "1",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 79,
+    "fields": {
+      "course_number": 4,
+      "group_number": "2",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 80,
+    "fields": {
+      "course_number": 4,
+      "group_number": "3",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 81,
+    "fields": {
+      "course_number": 4,
+      "group_number": "4.1",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 82,
+    "fields": {
+      "course_number": 4,
+      "group_number": "4.2",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 83,
+    "fields": {
+      "course_number": 4,
+      "group_number": "5.1",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 84,
+    "fields": {
+      "course_number": 4,
+      "group_number": "5.2",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 85,
+    "fields": {
+      "course_number": 4,
+      "group_number": "6.1",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 86,
+    "fields": {
+      "course_number": 4,
+      "group_number": "6.2",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 87,
+    "fields": {
+      "course_number": 4,
+      "group_number": "7",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 88,
+    "fields": {
+      "course_number": 4,
+      "group_number": "8.1",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 89,
+    "fields": {
+      "course_number": 4,
+      "group_number": "8.2",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 90,
+    "fields": {
+      "course_number": 4,
+      "group_number": "9",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 91,
+    "fields": {
+      "course_number": 4,
+      "group_number": "10.1",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 92,
+    "fields": {
+      "course_number": 4,
+      "group_number": "10.2",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 93,
+    "fields": {
+      "course_number": 4,
+      "group_number": "11.1",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 94,
+    "fields": {
+      "course_number": 4,
+      "group_number": "11.2",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 95,
+    "fields": {
+      "course_number": 4,
+      "group_number": "12.1",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 96,
+    "fields": {
+      "course_number": 4,
+      "group_number": "12.2",
+      "higher_education_level": "b"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 97,
+    "fields": {
+      "course_number": 1,
+      "group_number": "17",
+      "higher_education_level": "m"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 98,
+    "fields": {
+      "course_number": 1,
+      "group_number": "18",
+      "higher_education_level": "m"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 99,
+    "fields": {
+      "course_number": 1,
+      "group_number": "19",
+      "higher_education_level": "m"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 100,
+    "fields": {
+      "course_number": 1,
+      "group_number": "20",
+      "higher_education_level": "m"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 101,
+    "fields": {
+      "course_number": 1,
+      "group_number": "21.1",
+      "higher_education_level": "m"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 102,
+    "fields": {
+      "course_number": 1,
+      "group_number": "21.2",
+      "higher_education_level": "m"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 103,
+    "fields": {
+      "course_number": 1,
+      "group_number": "22",
+      "higher_education_level": "m"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 104,
+    "fields": {
+      "course_number": 1,
+      "group_number": "23",
+      "higher_education_level": "m"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 105,
+    "fields": {
+      "course_number": 2,
+      "group_number": "15",
+      "higher_education_level": "m"
+    }
+  },
+  {
+    "model": "api.coursegroup",
+    "pk": 106,
+    "fields": {
+      "course_number": 2,
+      "group_number": "16",
+      "higher_education_level": "m"
+    }
+  },
+  {
+    "model": "api.map",
+    "pk": 1,
+    "fields": {
+      "building": "m",
+      "building_level": 1,
+      "map_file": ""
+    }
+  },
+  {
+    "model": "api.map",
+    "pk": 2,
+    "fields": {
+      "building": "m",
+      "building_level": 2,
+      "map_file": ""
+    }
+  },
+  {
+    "model": "api.map",
+    "pk": 3,
+    "fields": {
+      "building": "m",
+      "building_level": 3,
+      "map_file": ""
+    }
+  },
+  {
+    "model": "api.map",
+    "pk": 4,
+    "fields": {
+      "building": "m",
+      "building_level": 4,
+      "map_file": ""
+    }
+  },
+  {
+    "model": "api.map",
+    "pk": 5,
+    "fields": {
+      "building": "ex1a",
+      "building_level": 1,
+      "map_file": ""
+    }
+  },
+  {
+    "model": "api.map",
+    "pk": 6,
+    "fields": {
+      "building": "ex1a",
+      "building_level": 2,
+      "map_file": ""
+    }
+  },
+  {
+    "model": "api.map",
+    "pk": 7,
+    "fields": {
+      "building": "ex1a",
+      "building_level": 3,
+      "map_file": ""
+    }
+  },
+  {
+    "model": "api.map",
+    "pk": 8,
+    "fields": {
+      "building": "ex1a",
+      "building_level": 4,
+      "map_file": ""
+    }
+  },
+  {
+    "model": "api.map",
+    "pk": 9,
+    "fields": {
+      "building": "ex1b",
+      "building_level": 1,
+      "map_file": ""
+    }
+  },
+  {
+    "model": "api.map",
+    "pk": 10,
+    "fields": {
+      "building": "ex1b",
+      "building_level": 2,
+      "map_file": ""
+    }
+  },
+  {
+    "model": "api.map",
+    "pk": 11,
+    "fields": {
+      "building": "ex1b",
+      "building_level": 3,
+      "map_file": ""
+    }
+  },
+  {
+    "model": "api.map",
+    "pk": 12,
+    "fields": {
+      "building": "ex1b",
+      "building_level": 4,
+      "map_file": ""
+    }
+  },
+  {
+    "model": "api.map",
+    "pk": 13,
+    "fields": {
+      "building": "ex1b",
+      "building_level": 5,
+      "map_file": ""
+    }
+  },
+  {
+    "model": "api.schedule",
+    "pk": 2,
+    "fields": {
+      "course_group": 59,
+      "schedule_file": "schedules/3_1_b.json"
+    }
+  },
+  {
+    "model": "api.schedule",
+    "pk": 3,
+    "fields": {
+      "course_group": 60,
+      "schedule_file": "schedules/3_2_b.json"
+    }
+  },
+  {
+    "model": "api.schedule",
+    "pk": 4,
+    "fields": {
+      "course_group": 61,
+      "schedule_file": "schedules/3_3_b.json"
+    }
+  },
+  {
+    "model": "api.schedule",
+    "pk": 5,
+    "fields": {
+      "course_group": 62,
+      "schedule_file": "schedules/3_4.1_b.json"
+    }
+  },
+  {
+    "model": "api.schedule",
+    "pk": 6,
+    "fields": {
+      "course_group": 63,
+      "schedule_file": "schedules/3_4.2_b.json"
+    }
+  },
+  {
+    "model": "api.schedule",
+    "pk": 7,
+    "fields": {
+      "course_group": 66,
+      "schedule_file": "schedules/3_6.1_b.json"
+    }
+  },
+  {
+    "model": "api.schedule",
+    "pk": 8,
+    "fields": {
+      "course_group": 67,
+      "schedule_file": "schedules/3_6.2_b.json"
+    }
+  },
+  {
+    "model": "api.publication",
+    "pk": 20,
+    "fields": {
+      "title": "Весна — время, когда",
+      "body_text": "Весна — время, когда всё просыпается и расцветает. Возможно, даже желание начать карьеру в «Северсталь-инфокоме». И тут на помощь приходим мы с подборкой вакансий: \n \n• Руководитель направления бизнес- и системного анализа https://vk.cc/cnRhLA. \n• Системный аналитик https://vk.cc/cnRhNk. \n• Руководитель центра разработки https://vk.cc/cnRhO5. \n• Технический архитектор https://vk.cc/cnRhOO. \n \nВсе вакансии доступны по ссылке: https://vk.cc/cnt3zg. \n \n #инфоком_вакансии \n #severstalitpeople",
+      "publication_datetime": "2023-05-13T15:27:27Z",
+      "event": null,
+      "image": null
+    }
+  },
+  {
+    "model": "api.publication",
+    "pk": 21,
+    "fields": {
+      "title": "🔥🔥🔥Горячие вакансии мая! Не",
+      "body_text": "🔥🔥🔥Горячие вакансии мая! \nНе упусти свой шанс стать частью команды DSR! \n\n✅ Откликнуться можно тут https://vk.cc/cnUp9T \nБлагодарим заранее за лайки и репосты! \n \n#DSR_career \n#DSR_vacancies",
+      "publication_datetime": "2023-05-15T12:37:44Z",
+      "event": null,
+      "image": null
+    }
+  },
+  {
+    "model": "api.publication",
+    "pk": 22,
+    "fields": {
+      "title": "🔥🔥🔥Горячие вакансии мая! Не",
+      "body_text": "🔥🔥🔥Горячие вакансии мая! \nНе упусти свой шанс стать частью команды DSR! \n\n✅ Откликнуться можно тут https://vk.cc/cnUp9T \nБлагодарим заранее за лайки и репосты! \n \n#DSR_career \n#DSR_vacancies",
+      "publication_datetime": "2023-05-15T17:30:07Z",
+      "event": null,
+      "image": null
+    }
+  },
+  {
+    "model": "api.publication",
+    "pk": 23,
+    "fields": {
+      "title": "Роботы в компании: миф",
+      "body_text": "Роботы в компании: миф или реальность? 🤔\n\nОтвет на этот вопрос ты узнаешь на мастер-классе от Центра корпоративных решений.\n\n📆 Когда: 18 мая в 15:30\n📍 Где: карьерная библиотека (1 этаж), \nчитальный зал, Университетская пл.,1\n\nПоговорим об использовании программных роботов для автоматизации процессов компании на примере Центра корпоративных решений.\nТакже, поделимся списком открытых вакансий в данном направлении в ЦКР.\n\nЛектор: Андрей Калабин, ведущий специалист направления роботизации. \n\nПриходи, будет полезно и интересно!💛\nhttps://vk.com/app5619682_-61583550#679800",
+      "publication_datetime": "2023-05-16T11:51:44Z",
+      "event": null,
+      "image": null
+    }
+  },
+  {
+    "model": "api.publication",
+    "pk": 24,
+    "fields": {
+      "title": "Новому митапу в офисе",
+      "body_text": "Новому митапу в офисе быть! 🌟 \n \nПродолжаем делиться экспертизой и расширять ваши знания в IT — приглашаем на встречу «Работа с файлами, в десятки раз превышающими размер оперативки». \n \nПоможем решить задачу обработки файлов, превышающих объем доступной оперативной памяти. В таких случаях кэш операционной системы и известные технологии BigData оказываются крайне неэффективным. \n \nКонстантин Селезнёв, наш главный специалист, поделится секретами, которые не входят в стандартную программу обучения IT-специалистов. Разберём на реальных кейсах 🤩 \n \nНадо идти! Когда? 1 июня в 18.30. \nВстречаемся в нашем офисе на Бахметьева, 2Б. Пицца и печеньки — по умолчанию будут! \n \n💎 Регистрируйтесь по ссылке, количество мест ограничено: https://docs.google.com/forms/d/e/1FAIpQLSehVXbfrMPCdY-hkdy7YqGClESM1URET2xbKnLEPVGphCAfAg/viewform \n \nТакже устроим онлайн-формат — ссылка станет доступна после регистрации. \n\nДо встречи в РЕЛЭКС!",
+      "publication_datetime": "2023-05-18T07:38:03Z",
+      "event": null,
+      "image": "https://sun6-23.userapi.com/impg/aO4tAn3bEIqFjBqIwkpC-ZjLpaq21Narva2bFg/-tb1LayRIQs.jpg?size=1800x1200&quality=95&sign=16c422db00c25d4ab6f39ce0774a6311&c_uniq_tag=OhHigkk1ffaLwTrRhFKXSwkYHy-k8lHpVo6f30KXhD8&type=album"
+    }
+  },
+  {
+    "model": "api.publication",
+    "pk": 25,
+    "fields": {
+      "title": "[club42908247|Surf] приглашают на онлайн-лекции",
+      "body_text": "[club42908247|Surf] приглашают на онлайн-лекции 🏄‍♂\n\nВо вторник спецы из [club42908247|Surf] придут к студентам ФКН, чтобы погрузить в технологии, которые помогают делать крутые продукты. В планах: живое общение, мемы в презентациях и нейросети. \n\nОтвлечемся от грядущей сессии и немного затронем летнюю школу 🤭\n\nРасписание и темы лекций смотри в карточках. Все пройдёт в Zoom — регистрируйся по ссылке, вышлем приглашения: https://forms.gle/mn1ewNeyLhp323VS6",
+      "publication_datetime": "2023-05-18T13:31:51Z",
+      "event": null,
+      "image": "https://sun9-43.userapi.com/impg/7GnUzmHjNSuPC_e-nxmdoTeotQP5iYpHbFECgA/lG6mBfKcdDM.jpg?size=2160x2160&quality=95&sign=1bffb5a4cd4cc84ed5ac3898b7743e22&c_uniq_tag=U7zIjV1oNrNNW5SbWXjIMsNivmKvz73Kr48SJ_q4794&type=album"
+    }
+  },
+  {
+    "model": "api.publication",
+    "pk": 26,
+    "fields": {
+      "title": "⚡VK открывает молодежи путь",
+      "body_text": "⚡VK открывает молодежи путь в IT и приглашает целеустремленных и активных ребятна свою амбассадорскую программу. Это отличный шанс прокачать личный бренд, сообщество или блог в соцсетях, поучиться у лучших экспертов в IT и найти 1000 новых друзей по всей стране. \n\nСтать амбассадорами VK могут все желающие в возрасте от 16 до 35 лет.\n \nЗачем участвовать в программе амбассадоров VK: \n🌟Прокачать личный бренд и сообщества с помощью инструментов VK — научиться создавать классные ролики, клипы, подкасты, тексты и многое другое. \n🌟Стать частью классного молодежного комьюнити профессионалов — вас ждет обмен опытом с 1000 амбассадоров VK со всей страны. \n🌟Познакомиться с работой одной из крупнейших IT-компаний и получить опыт, который вы сможете указать в своём резюме. \n🌟Прокачать свои навыки публичных выступлений и организации мероприятий — вас ждут лекции, вебинары и мероприятия по всей России. \n🌟Получить менторскую поддержку от топовых экспертов VK — сотрудники компании будут учить новому, давать экспертную оценку вашим идеям и помогать развивать собственные проекты. \n\n❗Прием заявок продлится до 21 мая 2023 года. Присоединяйтесь к трансляции нового набора и узнайте из первых уст, как попасть в амбассадорскую программу VK. \n\nПодать заявку можно в мини-приложении ВКонтакте: https://vk.cc/cnK96e",
+      "publication_datetime": "2023-05-19T11:46:59Z",
+      "event": null,
+      "image": "https://sun9-71.userapi.com/impg/2N77toUBfTu8WI4KFXWfQ7DqxnPvbvhxua0WMQ/fIVJ7psrN-o.jpg?size=1920x1080&quality=95&sign=30702648457bf70a0b47d30837b88b9c&c_uniq_tag=Z_W-M38aSVNGh4tKNkCyewCq0Kx0swfl3Ph5msRsXcY&type=album"
+    }
+  },
+  {
+    "model": "api.publication",
+    "pk": 27,
+    "fields": {
+      "title": "Text Generation Detection: GPT",
+      "body_text": "Text Generation Detection: GPT or Human от Codenrock \n \n🤔 Как ты думаешь, этот текст написал человек или искусственный интеллект? \n \n✒ Прими участие в ML-соревновании от Codenrock, которое пройдёт с 22 мая по 7 июня. \n \n🧬 Основная задача Text Generation Detection: GPT or Human: \nНеобходимо разработать модель, которая сможет отличать тексты, написанные искусственным интеллектом от текстов, написанных человеком. Участникам будут предоставлены наборы данных, содержащие тексты обеих категорий. Модель должна классифицировать каждый текст на две категории с высокой точностью. Для оценки точности классификации будет использоваться метрика F1. \n \n👉 Подробности: https://cnrlink.com/textgeneration \n \n☝ Для чего проводится соревнование Text Generation Detection: GPT or Human? \n \nВажно различать тексты, созданные искусственным интеллектом и написанные людьми, поскольку фальсификация текстов становится все более распространенной проблемой. Сегодня ИИ может генерировать фэйковые новости, обманывать системы безопасности, искажать информацию в Интернете. Поэтому задача соревнования является актуальной и важной для решения многих проблем, связанных с цифровой безопасностью. \n \n🎁 Результаты ты сможешь увидеть в лидерборде, который формируется в режиме реального времени. \n \n🏆 Победителем соревнования станет команда (от 1 до 5 человек) с наилучшей точностью классификации, а в качестве приза победители смогут выбрать сертификат на любом маркетплейсе на сумму 4 000 рублей. Все команды, которые окажутся в лидерборде, получат сертификат об участии. \n \n⭐ Партнёры соревнования: Первая Грузовая компания (ПГК) и #CloudMTS. \n \n👉 Успей зарегистрироваться и принять участие по ссылке: https://cnrlink.com/textgeneration \n \n🤖 Бип-Бип!",
+      "publication_datetime": "2023-05-23T10:05:09Z",
+      "event": null,
+      "image": null
+    }
+  },
+  {
+    "model": "api.publication",
+    "pk": 28,
+    "fields": {
+      "title": "Объявляем старт отбора в",
+      "body_text": "Объявляем старт отбора в Школу амбассадоров Росатома! 🔥 \n \nПоделись своей экспертизой и атомной любовью с окружающими. Подай заявку прямо сейчас, если ты: \n🔹 входишь в одну из этих категорий: сотрудник Росатома, студент или преподаватель опорного вуза, \n🔹 любишь атомную отрасль и готов поделиться своими профессиональными знаниями, \n🔹 хочешь научиться публичным коммуникациям. \n \n⃣ До 30 мая подай заявку, максимально подробно заполни анкету, пройди тест и запиши видеовизитку, \n⃣ после успешного прохождения первого этапа тебя ждёт собеседование с действующими амбассадорами, \n⃣ А уже 5 июня мы объявим счастливчиков, которые смогут начать обучение в Школе. \n \nУчастников ждёт образовательная программа, где они изучат основы работы в современном медийном пространстве и лучше познакомятся с атомной отраслью. Лучшие студенты школы присоединятся к амбассадорам Росатома, станут экспертами, которые популяризируют науку и атомные технологии, отправятся с нами на мероприятия, чтобы вдохновлять будущее поколение специалистов атомной отрасли. 💙⚛ \n \nЗвучит здорово, правда? 👉🏻 https://ambassador-rosatom.ru/?utm_source=post \n⠀ \n#ЯРосатом #КарьеравРосатоме #АмбассадорыРосатома",
+      "publication_datetime": "2023-05-23T11:19:49Z",
+      "event": null,
+      "image": null
+    }
+  },
+  {
+    "model": "api.publication",
+    "pk": 29,
+    "fields": {
+      "title": "Заходи на две оставшиеся",
+      "body_text": "Заходи на две оставшиеся online-лекции от Surf 🏄‍♂\n\n🍏 Swift UI: архитектурное внедрение в iOS-разработку. 15:10-16:45.\n\nПодключиться: https://us02web.zoom.us/j/84650711132?pwd=dmZGeFRtMktTOHRuQ3NVZFJMbGkxdz09\n\n🪲 Основы тестирования: как мы делаем это в Surf. 16:55-18:00.\n\nПодключиться: https://us02web.zoom.us/j/84814224599?pwd=MmhTNFYrOHBqWkZBK1c5bkF3YUZ5dz09",
+      "publication_datetime": "2023-05-23T12:25:21Z",
+      "event": null,
+      "image": "https://sun9-26.userapi.com/impg/r7HiQuf7o8S-hHlp7eGE8KuOuhbvsh8jPKtZ5A/lnjneG73-jc.jpg?size=2160x2160&quality=95&sign=da99f98ebf8fb519f31104661ba34a8b&c_uniq_tag=93xL_8QDaml7dq46-i-jo2JbMWZKxSWlqmeZnCA9YVc&type=album"
+    }
+  },
+  {
+    "model": "api.publication",
+    "pk": 30,
+    "fields": {
+      "title": "Neoflex + Fix Price",
+      "body_text": "Neoflex + Fix Price + Yandex Cloud\n \nТакое комбо дает десятикратный результат! 🚀 В новом кейсе рассказали, как помогли нашему клиенту, сети магазинов низких фиксированных цен Fix Price, ускорить загрузку аналитических данных о продажах и быстрее планировать рекламные кампании. \n \n«Neoflex является партнером Yandex Cloud в части разработки и внедрения облачных решений, что позволило нашей команде реализовать для Fix Price масштабируемую аналитическую систему всего за два месяца, включая этап проектирования, аналитики и разработки» — отметил Денис Князев, директор по развитию бизнеса Neoflex. \n \n#neo_проекты",
+      "publication_datetime": "2023-05-24T06:49:14Z",
+      "event": null,
+      "image": "https://sun9-61.userapi.com/impg/jcQo-1x8mi9fzrvSgy87wt3hQm8rtLo_-xCJpQ/Hq19e4PsPzY.jpg?size=1000x1250&quality=95&sign=a6c21c7926615cc946a6d72920e43726&c_uniq_tag=GeO4KK6iotKG8vWn-jCtMUuHYxVV9ZuVVC237zwhd58&type=album"
+    }
+  },
+  {
+    "model": "api.publication",
+    "pk": 31,
+    "fields": {
+      "title": "Вниманию студентов! ВСЕМ СТУДЕНТАМ",
+      "body_text": "Вниманию студентов!\n\nВСЕМ СТУДЕНТАМ в ОБЯЗАТЕЛЬНОМ ПОРЯДКЕ!!!\n\nВсероссийский студенческий проект «Твой Ход» приглашает студентов принять участие в новом опросе об эффективности воспитательной деятельности в нашем вузе. \n \nПройти надо «Опрос эффективности воспитательной работы вузов» на сайте https://tvoyhod.online/auth/signup?utm_source=pr&utm_medium=qr&utm_campaign=vuzy",
+      "publication_datetime": "2023-05-24T12:53:55Z",
+      "event": null,
+      "image": null
+    }
+  },
+  {
+    "model": "api.publication",
+    "pk": 32,
+    "fields": {
+      "title": "Вакансия Веб-дизайнер в Воронеже,",
+      "body_text": "Вакансия Веб-дизайнер в Воронеже, работа в компании Аспект, web-студия",
+      "publication_datetime": "2023-05-25T07:30:03Z",
+      "event": null,
+      "image": null
+    }
+  },
+  {
+    "model": "api.publication",
+    "pk": 33,
+    "fields": {
+      "title": "Добрый день! Приглашаем студентов",
+      "body_text": "Добрый день!\n\nПриглашаем студентов принять участие в голосовании за объекты городской среды г. Воронежа: Петровский сквер и Петровская набережная. \n\nЭТО КРАЙНЕ ВАЖНО ДЛЯ НАШЕГО ГОРОДА!!\n\nДля голосования необходимо перейти по ссылке https://36.gorodsreda.ru/objects?location=m20701000\n\nНапротив выбранного объекта нажать кнопку УЗНАТЬ ПОДРОБНОСТИ, затем кнопку ПРИНЯТЬ УЧАСТИЕ, далее авторизоваться через портал Госуслуг.\n\nДалее можно выбрать другие районы Воронежской области и проголосовать за объекты в этих районах!",
+      "publication_datetime": "2023-05-25T11:02:42Z",
+      "event": null,
+      "image": null
+    }
+  },
+  {
+    "model": "api.publication",
+    "pk": 34,
+    "fields": {
+      "title": "Привет, студент! 👋 Совкомбанк",
+      "body_text": "Привет, студент! 👋 \n \nСовкомбанк приглашает тебя на экскурсию в свой офис.😎 \n \nТам тебя ждет: \n \n🔹Увлекательная экскурсия в формате квеста \n \n🔹Общение с нашими экспертами \n \n🔹Кейтеринг, чтобы подзарядиться энергией \n \n🔹Классный мерч от Совкомбанка \n \n🔹Возможность получить оффер и устроиться на работу в Банк! \n \nКоличество мест ограничено – так что не тяни с записью на мероприятие! \n \nРегистрируйся тут: https://sovkombank.timepad.ru/event/2435164/ \n \n🗓 Дата проведения: \n26 мая, начало в 17:00 \n \n📍Воронеж, улица Станкевича, 36, Бизнес-центр «Форум»",
+      "publication_datetime": "2023-05-25T11:44:36Z",
+      "event": null,
+      "image": "https://sun9-43.userapi.com/impg/m9th0ziuVCposamzz9Cmku9pko-bUkVFbGTA4w/7F0jyXdYR5c.jpg?size=2000x2000&quality=95&sign=4dfd05621e0d4a69aff2290b65581dab&c_uniq_tag=8n-q99SVug_yir8iT9TG11tzMAJ_JI-I3HUpXycaCEo&type=album"
+    }
+  },
+  {
+    "model": "api.publication",
+    "pk": 35,
+    "fields": {
+      "title": "🥁 [club42908247|Surf] приглашают на",
+      "body_text": "🥁 [club42908247|Surf] приглашают на летнюю школу!\n\nНа карточках делимся расписанием, а ниже напоминаем, что за школы вообще такие:\n\n• Лекции и мастер-классы по направлениям разработки, аналитики, проджект-менеджмента и тестирования;\n• Преподаватели — опытные Сёрферы и менторы наших стажёров и джунов;\n• Чатики, где обмениваются опытом и нетворкают;\n• Возможность закрыть практику в вузе, получить сертификат и проект в портфолио;\n• Из бонусов: мемы, живое общение, хорошее настроение.\n\n🏆 Вдобавок ко всему, лучшие участники могут стать частью команды Surf!\n\nЖдём всех, кому интересны IT и мобильная разработка. Выбирай направление и регистрируйся → https://vk.cc/coqyg1",
+      "publication_datetime": "2023-05-29T15:30:21Z",
+      "event": null,
+      "image": "https://sun9-53.userapi.com/impg/I6yVBqWdEvMdJ5smBscpuRPETaUFDi8pvVMEKQ/2SatMO5QK_g.jpg?size=2159x2160&quality=95&sign=4ef3c162f89dbe3ff9dc714d02242bc8&c_uniq_tag=Xfx2y1Kr9QLZ6EFMX21YBwRgUtLeNfwpXeAK4M1VN24&type=album"
+    }
+  },
+  {
+    "model": "api.publication",
+    "pk": 36,
+    "fields": {
+      "title": "Вниманию студентов-бакалавров 2 курса",
+      "body_text": "Вниманию студентов-бакалавров 2 курса направления ИСИТ (группы 1 —4). Собрание по поводу распределения по профилям состоится 9 июня в 13.25 в ауд. 479.",
+      "publication_datetime": "2023-05-31T14:33:21Z",
+      "event": null,
+      "image": null
+    }
+  },
+  {
+    "model": "api.publication",
+    "pk": 37,
+    "fields": {
+      "title": "Студенты ФКН – серебряные",
+      "body_text": "Студенты ФКН – серебряные призёры Международного фестиваля по спортивному программированию \n\n24-28 мая в городе Грозный состоялся Международный фестиваль по спортивному программированию «Код мира», в котором приняли участие большее 300 человек из России, Армении, Белоруссии, Египта, Казахстана, Мали, Омана, Палестины, Таджикистана, Узбекистана, Южной Осетии. Соревнования проводились Федерацией спортивного программирования России по двум дисциплинам – алгоритмическому и продуктовому программированиям. Партнерами мероприятия выступили Региональный общественный фонд им. А. А. Кадырова, Минспорта России, Минцифры России, Министерство Чеченской Республики по физической культуре спорту и молодежной политике, Чеченский государственный университет им. А.А. Кадырова и Грозненский государственный нефтяной технический университет им. Академика М. Д. Миллионщикова. Общий призовой фонд соревнований составил 3.5 миллиона рублей. Студенты ФКН представляли на данных соревнованиях команду Воронежской области. \n\nВ первый день соревнований в команде по алгоритмическому программированию сражались Никита Бережнов, Максим Новоточинов и Юлия Шишко. Участникам предлагалось за 5 часов решить 12 задач. Для решения каждой задачи надо было придумать эффективный алгоритм и реализовать его в виде программы на любом языке программирования. \nКоманде из ВГУ удалось решить 10 задач и в итоге занять 2 место, уступив только команде МФТИ. Третье место досталось студентам из ИТМО, четвертое – из МИСИС. Полную таблицу с результатами команд можно увидеть по ссылке: http://ioi-russia.vdi.mipt.ru/~ejudge/grozny2023algo\n \nВо второй и третий день для участия в состязании по продуктовому программированию к перечисленным выше студентам присоединись Александр Антонов и Никита Морозов. За два дня работы командам предлагалось разработать решение в виде площадки для реализации фермерских продуктов с возможностью размещения продукции производителями, онлайн-заказов покупателями, обратной связи и т.п. Помимо разработ",
+      "publication_datetime": "2023-05-31T15:27:45Z",
+      "event": null,
+      "image": "https://sun6-21.userapi.com/impg/xUSWhGcwY1BFypa819rxAuBWGvrdqfLN2CpDjQ/JeMJL5knSqE.jpg?size=2560x1916&quality=95&sign=523d996ca64647780e7dd6175c8bac33&c_uniq_tag=To2mfp5zsazIuGRMCvo9SL6xi5Drr77BW9dlw7r2JKc&type=album"
+    }
+  },
+  {
+    "model": "api.publication",
+    "pk": 38,
+    "fields": {
+      "title": "Frontend-разработчики, приходите качать скиллы",
+      "body_text": "Frontend-разработчики, приходите качать скиллы под руководством команды Red Collar. Открываем набор на первый курс подобного формата, лучших участников пригласим в команду. \n\nЕжедневно разрабатываем десятки проектов разного формата и сервисы из различных доменных областей. Наша цель — показать вам профессиональный подход, а лучших — позвать в штат. Давайте с нами! \n\n👨‍🎓 Этот курс для вас, если: \n\n- Понимаете основы HTML, CSS и верстки.\n- Базово знаете JS, пробовали что-то писать самостоятельно или работать над PET-проектом.\n- Быстро приступаете к работе, впитываете знания и любите делиться опытом с другими и открыты к конструктивной критике.\n\n 🏆 Что получите в итоге: \n\n– Научитесь востребованной и качественной разработке.\n– Добавите сильный проект в портфолио.\n– Попадете в нашу команду, если проявите себя.\n\n⚡ Как попасть: \n\n– Выполните тестовое задание: https://vk.cc/couThG.\n– Отправьте его на почту career@redcollar.ru вместе с резюме и сопроводительным письмом до 23 июня. \n– Ждите фидбэка, мы вернемся с ответом после дедлайна приема работ. \n\nСтарт курса: 17 июля\nДлительность: 12 недель\n\n🍧 Больше подробностей: https://school.redcollar.ru\n\nЖдём ваши письма! \n\n#school@redcollar",
+      "publication_datetime": "2023-06-01T15:55:08Z",
+      "event": null,
+      "image": "https://sun9-70.userapi.com/impg/9mjNawJtr5ZnW3LGRF3XfhTCcCFveKAc4IALKA/Id6MjWBInnk.jpg?size=1920x1080&quality=95&sign=239eb7ee73e0b72b898c406141b6b34e&c_uniq_tag=o1Xr3ygNtnhpLX2xZ-gy_7x55YBunQw1D3JjltximSQ&type=album"
+    }
+  }
+]
