@@ -161,7 +161,7 @@ SIMPLE_JWT = {
 }
 
 CRONJOBS = [
-    ('*/2 * * * *', 'api.news_parser.get_news'),
+    ('0 */6 * * *', 'api.news_parser.get_news'),
 ]
 
 MEDIA_URL = '/media/'
